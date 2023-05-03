@@ -70,6 +70,7 @@ if 'messages' not in st.session_state:
     st.session_state['messages'] = get_initial_message()
     
 query = st.text_input("Question: ", value="", key="input")
+st.sidebar.write(messages)
 
 if query:
     with st.spinner("thinking... this can take a while..."):
