@@ -70,6 +70,7 @@ def update_chat(messages, role, content):
     return messages
 
 if 'generated' not in st.session_state:
+    st.session_state['messages'] = get_initial_message()
     st.session_state['generated'] = []
     
 if 'past' not in st.session_state:
@@ -78,8 +79,8 @@ if 'past' not in st.session_state:
 if 'messages' not in st.session_state:
         st.session_state['messages'] = []
     
-if 'map_text' not in st.session_state:
-    st.session_state['map_text'] = []
+#if 'map_text' not in st.session_state:
+#    st.session_state['map_text'] = []
     
 query = st.text_input("Question: ", value="", key="input")
     
@@ -93,7 +94,7 @@ st.sidebar.markdown(html_temp.format("rgba(55, 53, 47, 0.16)"),unsafe_allow_html
 #    st.session_state['past'] = []
 #    st.session_state['generated'] = []
 #    st.session_state['current_map_id'] = map_id
-#    query = "Suggest some questions you can answer about this Wardley Map?"
+#    query = "Help?"
 #    st.session_state['messages'] = get_initial_message()
     
 #title = ""
@@ -110,14 +111,13 @@ st.sidebar.markdown(html_temp.format("rgba(55, 53, 47, 0.16)"),unsafe_allow_html
 
 if query:
     with st.spinner("thinking... this can take a while..."):
-        #map_data = st.session_state['map_text']
         messages = st.session_state['messages']
         messages = update_chat(messages, "user", query)
         response = get_chatgpt_response(messages, model)
         messages = update_chat(messages, "assistant", response)
         st.session_state.past.append(query)
         st.session_state.generated.append(response)
-        del st.session_state["input"]
+        #del st.session_state["input"]
 
 if st.session_state['generated']:
 
