@@ -56,14 +56,13 @@ def update_chat(messages, role, content):
     return messages
 
 if 'generated' not in st.session_state:
-    st.sidebar.write(get_initial_message())
     st.session_state['generated'] = []
     
 if 'past' not in st.session_state:
     st.session_state['past'] = []
 
 if 'messages' not in st.session_state:
-        st.session_state['messages'] = []
+        st.session_state['messages'] = get_initial_message()
     
 query = st.text_input("Question: ", value="", key="input")
 
