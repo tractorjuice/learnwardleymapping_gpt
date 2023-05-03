@@ -35,7 +35,8 @@ def get_initial_message():
             "content": f"""
              Interact with WardleyMapBot, your personal guide to learning and creating Wardley Maps.
              Discover the power of Wardley Mapping for strategic planning and decision-making by choosing to 'Learn' about the components of a Wardley Map, or 'Vocabulary' and I will provide a list of common terms and their definitions. or 'Create' your own map with step-by-step guidance.
-             If you need assistance, type 'Help' for support. Begin your Wardley Mapping journey now!             """
+             If you need assistance, type 'Help' for support. Begin your Wardley Mapping journey now!
+             """
         },
         {
             "role": "user",
@@ -43,7 +44,9 @@ def get_initial_message():
         },
         {
             "role": "assistant",
-            "content": ""
+            "content": """
+            Of course! Here's how I can help you: 1. Learn: To learn about the components of a Wardley Map, type 'Learn' 2. Vocabulary: To get a list of common Wardley Map terms and their definitions, type 'Vocabulary' 3. Create: To create your own Wardley Map with step-by-step guidance, type 'Create' Feel free to ask specific questions or for clarification on any topic related to Wardley Mapping.
+            """
         }
     ]
     return messages
