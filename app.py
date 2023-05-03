@@ -80,9 +80,6 @@ if query:
         messages = update_chat(messages, "assistant", response)
         st.session_state.past.append(query)
         st.session_state.generated.append(response)
-        
-        st.sidebar.write(response)
-        st.sidebar.write(messages)
 
 if st.session_state['generated']:
     for i in range(len(st.session_state['generated'])-1, -1, -1):
