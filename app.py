@@ -18,12 +18,6 @@ html_temp = """
 st.set_page_config(page_title="Learn Wardley Mapping Bot")
 st.sidebar.title("Learn Wardley Mapping")
 st.sidebar.markdown(html_temp.format("rgba(55, 53, 47, 0.16)"),unsafe_allow_html=True)
-st.sidebar.markdown("""Welcome to WardleyMapBot! It's great to have you here. To get started, please choose one of the options below:
-\nType 'Learn' to learn about the components of a Wardley Map.
-\nType 'Vocabulary' to get a list of common terms and their definitions related to Wardley Mapping.
-\nType 'Create' to create your own map with step-by-step guidance.
-\nIf you need assistance, type 'Help' for support. Begin your Wardley Mapping journey now!""")
-st.sidebar.markdown(html_temp.format("rgba(55, 53, 47, 0.16)"),unsafe_allow_html=True)
 st.sidebar.markdown("Developed by Mark Craddock](https://twitter.com/mcraddock)", unsafe_allow_html=True)
 st.sidebar.markdown("Current Version: 0.0.1")
 st.sidebar.markdown("Using GPT-4 API")
@@ -73,9 +67,9 @@ if 'past' not in st.session_state:
 
 if 'messages' not in st.session_state:
     st.session_state['messages'] = get_initial_message()
-    message("""
+    st.session_state.generated.append("""
     I'm here to help you learn about and create Wardley Maps. Here are some options for getting started:\n\n1. Learn: To learn about the components and concepts of a Wardley Map, type "Learn". \n2. Vocabulary: To get a list of common Wardley Map terms and their definitions, type "Vocabulary". \n3. Create: To create your own Wardley Map with step-by-step guidance, type "Create". \n\nIf you have any specific questions or need clarification on any aspect of Wardley Mapping, feel free to ask.
-    """, key=str(0))
+    """)
 
 if query:
     with st.spinner("thinking... this can take a while..."):
