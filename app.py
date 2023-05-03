@@ -22,7 +22,7 @@ st-sidebar.markdown("""Welcome to WardleyMapBot! It's great to have you here. To
 Type 'Learn' to learn about the components of a Wardley Map.
 Type 'Vocabulary' to get a list of common terms and their definitions related to Wardley Mapping.
 Type 'Create' to create your own map with step-by-step guidance.
-If you need assistance, type 'Help' for support. Begin your Wardley Mapping journey now!"""
+If you need assistance, type 'Help' for support. Begin your Wardley Mapping journey now!""")
 st.sidebar.markdown("Developed by Mark Craddock](https://twitter.com/mcraddock)", unsafe_allow_html=True)
 st.sidebar.markdown("Current Version: 0.1.4")
 st.sidebar.markdown("Using GPT-4 API")
