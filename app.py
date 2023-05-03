@@ -73,7 +73,11 @@ if 'past' not in st.session_state:
 
 if 'messages' not in st.session_state:
     st.session_state['messages'] = get_initial_message()
-    message(messages['role']['system']['content'], key=str(0))
+    message("""
+             Interact with WardleyMapBot, your personal guide to learning and creating Wardley Maps.
+             Discover the power of Wardley Mapping for strategic planning and decision-making by choosing to 'Learn' about the components of a Wardley Map, or 'Vocabulary' and I will provide a list of common terms and their definitions. or 'Create' your own map with step-by-step guidance.
+             If you need assistance, type 'Help' for support. Begin your Wardley Mapping journey now!
+             """, key=str(0))
     message("Help?", is_user=True, key='initial_user')
 
 if query:
