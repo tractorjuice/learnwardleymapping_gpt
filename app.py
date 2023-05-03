@@ -45,8 +45,7 @@ def get_initial_message():
         {
             "role": "assistant",
             "content": """
-            Of course! Here's how I can help you: 1. Learn: To learn about the components of a Wardley Map, type 'Learn' 2. Vocabulary: To get a list of common Wardley Map terms and their definitions, type 'Vocabulary' 3. Create: To create your own Wardley Map with step-by-step guidance, type 'Create' Feel free to ask specific questions or for clarification on any topic related to Wardley Mapping.
-            """
+            I'm here to help you learn about and create Wardley Maps. Here are some options for getting started: 1. Learn: To learn about the components and concepts of a Wardley Map, type "Learn". 2. Vocabulary: To get a list of common Wardley Map terms and their definitions, type "Vocabulary". 3. Create: To create your own Wardley Map with step-by-step guidance, type "Create". If you have any specific questions or need clarification on any aspect of Wardley Mapping, feel free to ask.            """
         }
     ]
     return messages
@@ -71,6 +70,8 @@ if 'past' not in st.session_state:
 if 'messages' not in st.session_state:
     query = "help?"
     st.session_state['messages'] = get_initial_message()
+    st.session_state.past.append(query)
+    #st.session_state.generated.append(response)
     
 query = st.text_input("Question: ", value="", key="input")
 
