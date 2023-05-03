@@ -72,7 +72,7 @@ if 'generated' not in st.session_state:
 if 'past' not in st.session_state:
     st.session_state['past'] = []
 
-if 'messages' not in st.session_state:
+#if 'messages' not in st.session_state:
     #query = "help?"
     #st.session_state['messages'] = get_initial_message()
     #st.session_state.past.append(query)
