@@ -30,6 +30,7 @@ st.sidebar.markdown("Using GPT-4 API")
 st.sidebar.markdown(html_temp.format("rgba(55, 53, 47, 0.16)"),unsafe_allow_html=True)
     
 def get_initial_message():
+    query = "Help?"
     messages = [
         {
             "role": "system",
@@ -71,7 +72,7 @@ if 'past' not in st.session_state:
     st.session_state['past'] = []
 
 if 'messages' not in st.session_state:
-    st.session_state['messages'] = []
+    st.session_state['messages'] = get_initial_message()
 
 if query:
     with st.spinner("thinking... this can take a while..."):
