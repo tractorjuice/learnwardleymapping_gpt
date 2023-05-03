@@ -67,7 +67,8 @@ query = st.text_input("Question: ", value="", key="input")
 if 'generated' not in st.session_state:
     st.session_state['generated'] = []
     messages = get_initial_message()
-    st.session_state.generated.append(messages)
+    message(st.session_state["generated"][0], key=str(0))
+    #st.session_state.generated.append(messages)
     
 if 'past' not in st.session_state:
     st.session_state['past'] = []
