@@ -15,22 +15,22 @@ html_temp = """
                 </div>
                 """
 
-st.set_page_config(page_title="Chat with your Wardley Map")
-st.sidebar.title("Chat with Map")
+st.set_page_config(page_title="Learn Wardley Mapping Bot")
+st.sidebar.title("Learn Wardley Mapping")
 st.sidebar.markdown(html_temp.format("rgba(55, 53, 47, 0.16)"),unsafe_allow_html=True)
 st.sidebar.markdown("Developed by Mark Craddock](https://twitter.com/mcraddock)", unsafe_allow_html=True)
 st.sidebar.markdown("Current Version: 0.1.4")
 st.sidebar.markdown("Using GPT-4 API")
 st.sidebar.markdown(html_temp.format("rgba(55, 53, 47, 0.16)"),unsafe_allow_html=True)
-st.sidebar.markdown("## Enter Map ID")
+#st.sidebar.markdown("## Enter Map ID")
     
 def get_initial_message():
-    query = "Suggest some questions you can answer about this Wardley Map?"
-    url = f"https://api.onlinewardleymaps.com/v1/maps/fetch?id={map_id}"
-    response = requests.get(url)
-    map_data = response.json()
-    map_text = map_data["text"]
-    st.session_state['map_text'] = map_text
+    query = "help?"
+    #url = f"https://api.onlinewardleymaps.com/v1/maps/fetch?id={map_id}"
+    #response = requests.get(url)
+    #map_data = response.json()
+    #map_text = map_data["text"]
+    #st.session_state['map_text'] = map_text
     
     messages = [
         {
