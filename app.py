@@ -18,7 +18,7 @@ html_temp = """
 st.set_page_config(page_title="Learn Wardley Mapping Bot")
 st.sidebar.title("Learn Wardley Mapping")
 st.sidebar.markdown(html_temp.format("rgba(55, 53, 47, 0.16)"),unsafe_allow_html=True)
-st-sidebar.markdown("""Welcome to WardleyMapBot! It's great to have you here. To get started, please choose one of the options below:
+st.sidebar.markdown("""Welcome to WardleyMapBot! It's great to have you here. To get started, please choose one of the options below:
 Type 'Learn' to learn about the components of a Wardley Map.
 Type 'Vocabulary' to get a list of common terms and their definitions related to Wardley Mapping.
 Type 'Create' to create your own map with step-by-step guidance.
