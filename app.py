@@ -36,9 +36,9 @@ def get_initial_message():
         {
             "role": "system",
             "content": f"""
-             As a chatbot, Interact with WardleyMapBot, your personal guide to learning and creating Wardley Maps
-             Discover the power of Wardley Mapping for strategic planning and decision-making by choosing to 'Learn' about the components of a Wardley Map, or 'Create' your own map with step-by-step guidance. If you need assistance, type 'Help' for support. Begin your Wardley Mapping journey now!
-             """
+             As a chatbot, Interact with WardleyMapBot, your personal guide to learning and creating Wardley Maps.
+             Discover the power of Wardley Mapping for strategic planning and decision-making by choosing to 'Learn' about the components of a Wardley Map, or 'Vocabulary' and I will provide a list of common terms and their definitions. or 'Create' your own map with step-by-step guidance.
+             If you need assistance, type 'Help' for support. Begin your Wardley Mapping journey now!             """
         },
         {
             "role": "user",
@@ -46,14 +46,7 @@ def get_initial_message():
         },
         {
             "role": "assistant",
-            "content": """
-            Welcome to WardleyMapBot! I'm here to help you learn about and create Wardley Maps. Let's get started.
-            Please choose one of the following options by typing it out:
-            
-            Learn - Learn about the components of a Wardley Map and its uses
-            Create - Create your own Wardley Map with step-by-step guidance
-            Help - Get assistance with Wardley Maps or this interaction.
-            """
+            "content": ""
         }
     ]
     return messages
@@ -70,7 +63,6 @@ def update_chat(messages, role, content):
     return messages
 
 if 'generated' not in st.session_state:
-    st.session_state['messages'] = get_initial_message()
     st.session_state['generated'] = []
     
 if 'past' not in st.session_state:
@@ -120,7 +112,6 @@ if query:
         #del st.session_state["input"]
 
 if st.session_state['generated']:
-
     for i in range(len(st.session_state['generated'])-1, -1, -1):
         message(st.session_state["generated"][i], key=str(i))
         message(st.session_state['past'][i], is_user=True, key=str(i) + '_user')
