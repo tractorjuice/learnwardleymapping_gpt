@@ -22,16 +22,9 @@ st.sidebar.markdown("Developed by Mark Craddock](https://twitter.com/mcraddock)"
 st.sidebar.markdown("Current Version: 0.1.4")
 st.sidebar.markdown("Using GPT-4 API")
 st.sidebar.markdown(html_temp.format("rgba(55, 53, 47, 0.16)"),unsafe_allow_html=True)
-#st.sidebar.markdown("## Enter Map ID")
     
 def get_initial_message():
     query = "help?"
-    #url = f"https://api.onlinewardleymaps.com/v1/maps/fetch?id={map_id}"
-    #response = requests.get(url)
-    #map_data = response.json()
-    #map_text = map_data["text"]
-    #st.session_state['map_text'] = map_text
-    
     messages = [
         {
             "role": "system",
@@ -63,6 +56,8 @@ def update_chat(messages, role, content):
     return messages
 
 if 'generated' not in st.session_state:
+    get_initial_message()
+    st.sidebar.write("First Run")
     st.session_state['generated'] = []
     
 if 'past' not in st.session_state:
@@ -71,35 +66,7 @@ if 'past' not in st.session_state:
 if 'messages' not in st.session_state:
         st.session_state['messages'] = []
     
-#if 'map_text' not in st.session_state:
-#    st.session_state['map_text'] = []
-    
 query = st.text_input("Question: ", value="", key="input")
-    
-#map_id = st.sidebar.text_input("Enter the ID of the Wardley Map:", value="7OPuuDEWFoyfj00TS1")
-#st.sidebar.write("For https://onlinewardleymaps.com/#clone:OXeRWhqHSLDXfOnrfI")
-#st.sidebar.write("Examples:\n\ngQuu7Kby3yYveDngy2\n\nxi4JEUqte7XRWjjhgQ\n\nMOSCNj9iXnXdbCutbl\n\nOXeRWhqHSLDXfOnrfI\n\nO42FCNodPW3UPaP8AD")
-st.sidebar.markdown(html_temp.format("rgba(55, 53, 47, 0.16)"),unsafe_allow_html=True)
-    
-#if st.session_state.get('current_map_id') != map_id:
-#    del st.session_state['messages']
-#    st.session_state['past'] = []
-#    st.session_state['generated'] = []
-#    st.session_state['current_map_id'] = map_id
-#    query = "Help?"
-#    st.session_state['messages'] = get_initial_message()
-    
-#title = ""
-
-#if 'map_text' in st.session_state:
-#    st.sidebar.markdown("### Downloaded Map Data")
-#    map_text = st.session_state['map_text']
-#    for line in map_text.split("\n"):
-#        if line.startswith("title"):
-#            title = line.split("title ")[1]
-#    if title:
-#        st.sidebar.markdown(f"### {title}")
-#    st.sidebar.code(st.session_state['map_text'])
 
 if query:
     with st.spinner("thinking... this can take a while..."):
@@ -109,7 +76,6 @@ if query:
         messages = update_chat(messages, "assistant", response)
         st.session_state.past.append(query)
         st.session_state.generated.append(response)
-        #del st.session_state["input"]
 
 if st.session_state['generated']:
     for i in range(len(st.session_state['generated'])-1, -1, -1):
