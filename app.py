@@ -23,6 +23,7 @@ st.sidebar.markdown("""Welcome to WardleyMapBot! It's great to have you here. To
 \nType 'Vocabulary' to get a list of common terms and their definitions related to Wardley Mapping.
 \nType 'Create' to create your own map with step-by-step guidance.
 \nIf you need assistance, type 'Help' for support. Begin your Wardley Mapping journey now!""")
+st.sidebar.markdown(html_temp.format("rgba(55, 53, 47, 0.16)"),unsafe_allow_html=True)
 st.sidebar.markdown("Developed by Mark Craddock](https://twitter.com/mcraddock)", unsafe_allow_html=True)
 st.sidebar.markdown("Current Version: 0.1.4")
 st.sidebar.markdown("Using GPT-4 API")
@@ -65,13 +66,15 @@ query = st.text_input("Question: ", value="", key="input")
 
 if 'generated' not in st.session_state:
     st.session_state['generated'] = []
+    messages = get_initial_message()
+    st.session_state.generated.append(messages)
     
 if 'past' not in st.session_state:
     st.session_state['past'] = []
 
 if 'messages' not in st.session_state:
-    query = "help?"
-    st.session_state['messages'] = get_initial_message()
+    #query = "help?"
+    #st.session_state['messages'] = get_initial_message()
     #st.session_state.past.append(query)
     #st.session_state.generated.append(response)
 
