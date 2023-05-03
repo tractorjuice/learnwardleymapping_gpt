@@ -66,18 +66,12 @@ query = st.text_input("Question: ", value="", key="input")
 
 if 'generated' not in st.session_state:
     st.session_state['generated'] = []
-    #messages = get_initial_message()
-    #message(st.session_state["generated"][0], key=str(0))
-    #st.session_state.generated.append(messages)
     
 if 'past' not in st.session_state:
     st.session_state['past'] = []
 
-#if 'messages' not in st.session_state:
-    #query = "help?"
-    #st.session_state['messages'] = get_initial_message()
-    #st.session_state.past.append(query)
-    #st.session_state.generated.append(response)
+if 'messages' not in st.session_state:
+    st.session_state['messages'] = []
 
 if query:
     with st.spinner("thinking... this can take a while..."):
