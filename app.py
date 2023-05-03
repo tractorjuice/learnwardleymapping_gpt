@@ -74,10 +74,9 @@ if 'past' not in st.session_state:
 if 'messages' not in st.session_state:
     st.session_state['messages'] = get_initial_message()
     message("""
-             Interact with WardleyMapBot, your personal guide to learning and creating Wardley Maps.
-             Discover the power of Wardley Mapping for strategic planning and decision-making by choosing to 'Learn' about the components of a Wardley Map, or 'Vocabulary' and I will provide a list of common terms and their definitions. or 'Create' your own map with step-by-step guidance.
-             If you need assistance, type 'Help' for support. Begin your Wardley Mapping journey now!
-             """, key=str(0))
+    I'm here to help you learn about and create Wardley Maps. Here are some options for getting started: 1. Learn: To learn about the components and concepts of a Wardley Map, type "Learn". 2. Vocabulary: To get a list of common Wardley Map terms and their definitions, type "Vocabulary". 3. Create: To create your own Wardley Map with step-by-step guidance, type "Create". If you have any specific questions or need clarification on any aspect of Wardley Mapping, feel free to ask.
+    """
+, key=str(0))
     message("Help?", is_user=True, key='initial_user')
 
 if query:
