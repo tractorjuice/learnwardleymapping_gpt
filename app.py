@@ -66,8 +66,8 @@ query = st.text_input("Question: ", value="", key="input")
 
 if 'generated' not in st.session_state:
     st.session_state['generated'] = []
-    messages = get_initial_message()
-    message(st.session_state["generated"][0], key=str(0))
+    #messages = get_initial_message()
+    #message(st.session_state["generated"][0], key=str(0))
     #st.session_state.generated.append(messages)
     
 if 'past' not in st.session_state:
@@ -85,7 +85,8 @@ if query:
         messages = update_chat(messages, "user", query)
         response = get_chatgpt_response(messages, model)
         messages = update_chat(messages, "assistant", response)
-        st.sidebar.write(messages)
+        st.sidebar.write(response)
+        #st.sidebar.write(messages)
         st.session_state.past.append(query)
         st.session_state.generated.append(response)
 
