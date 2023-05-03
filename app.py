@@ -73,7 +73,7 @@ if 'past' not in st.session_state:
 
 if 'messages' not in st.session_state:
     st.session_state['messages'] = get_initial_message()
-    message("first q", key=str(0))
+    message(messages['role']['system']['content'], key=str(0))
     message("Help?", is_user=True, key='initial_user')
 
 if query:
