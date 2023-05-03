@@ -36,7 +36,7 @@ def get_initial_message():
         {
             "role": "system",
             "content": f"""
-             As a chatbot, Interact with WardleyMapBot, your personal guide to learning and creating Wardley Maps.
+             Interact with WardleyMapBot, your personal guide to learning and creating Wardley Maps.
              Discover the power of Wardley Mapping for strategic planning and decision-making by choosing to 'Learn' about the components of a Wardley Map, or 'Vocabulary' and I will provide a list of common terms and their definitions. or 'Create' your own map with step-by-step guidance.
              If you need assistance, type 'Help' for support. Begin your Wardley Mapping journey now!             """
         },
