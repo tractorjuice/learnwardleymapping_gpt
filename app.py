@@ -70,7 +70,6 @@ if 'messages' not in st.session_state:
     st.session_state['messages'] = get_initial_message()
     
 query = st.text_input("Question: ", value="", key="input")
-st.sidebar.write(messages)
 
 if query:
     with st.spinner("thinking... this can take a while..."):
@@ -78,6 +77,7 @@ if query:
         messages = update_chat(messages, "user", query)
         response = get_chatgpt_response(messages, model)
         messages = update_chat(messages, "assistant", response)
+        st.sidebar.write(messages)
         st.session_state.past.append(query)
         st.session_state.generated.append(response)
 
