@@ -29,7 +29,6 @@ st.sidebar.markdown("Using GPT-4 API")
 st.sidebar.markdown(html_temp.format("rgba(55, 53, 47, 0.16)"),unsafe_allow_html=True)
     
 def get_initial_message():
-    query = "help?"
     messages = [
         {
             "role": "system",
@@ -67,7 +66,8 @@ if 'past' not in st.session_state:
     st.session_state['past'] = []
 
 if 'messages' not in st.session_state:
-        st.session_state['messages'] = get_initial_message()
+    query = "help?"
+    st.session_state['messages'] = get_initial_message()
     
 query = st.text_input("Question: ", value="", key="input")
 
