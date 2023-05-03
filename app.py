@@ -38,7 +38,6 @@ def get_initial_message():
             "content": f"""
              As a chatbot, Interact with WardleyMapBot, your personal guide to learning and creating Wardley Maps
              Discover the power of Wardley Mapping for strategic planning and decision-making by choosing to 'Learn' about the components of a Wardley Map, or 'Create' your own map with step-by-step guidance. If you need assistance, type 'Help' for support. Begin your Wardley Mapping journey now!
-             WARDLEY MAP: {map_text}
              """
         },
         {
@@ -84,30 +83,30 @@ if 'map_text' not in st.session_state:
     
 query = st.text_input("Question: ", value="", key="input")
     
-map_id = st.sidebar.text_input("Enter the ID of the Wardley Map:", value="7OPuuDEWFoyfj00TS1")
-st.sidebar.write("For https://onlinewardleymaps.com/#clone:OXeRWhqHSLDXfOnrfI")
-st.sidebar.write("Examples:\n\ngQuu7Kby3yYveDngy2\n\nxi4JEUqte7XRWjjhgQ\n\nMOSCNj9iXnXdbCutbl\n\nOXeRWhqHSLDXfOnrfI\n\nO42FCNodPW3UPaP8AD")
+#map_id = st.sidebar.text_input("Enter the ID of the Wardley Map:", value="7OPuuDEWFoyfj00TS1")
+#st.sidebar.write("For https://onlinewardleymaps.com/#clone:OXeRWhqHSLDXfOnrfI")
+#st.sidebar.write("Examples:\n\ngQuu7Kby3yYveDngy2\n\nxi4JEUqte7XRWjjhgQ\n\nMOSCNj9iXnXdbCutbl\n\nOXeRWhqHSLDXfOnrfI\n\nO42FCNodPW3UPaP8AD")
 st.sidebar.markdown(html_temp.format("rgba(55, 53, 47, 0.16)"),unsafe_allow_html=True)
     
-if st.session_state.get('current_map_id') != map_id:
-    del st.session_state['messages']
-    st.session_state['past'] = []
-    st.session_state['generated'] = []
-    st.session_state['current_map_id'] = map_id
-    query = "Suggest some questions you can answer about this Wardley Map?"
-    st.session_state['messages'] = get_initial_message()
+#if st.session_state.get('current_map_id') != map_id:
+#    del st.session_state['messages']
+#    st.session_state['past'] = []
+#    st.session_state['generated'] = []
+#    st.session_state['current_map_id'] = map_id
+#    query = "Suggest some questions you can answer about this Wardley Map?"
+#    st.session_state['messages'] = get_initial_message()
     
-title = ""
+#title = ""
 
-if 'map_text' in st.session_state:
-    st.sidebar.markdown("### Downloaded Map Data")
-    map_text = st.session_state['map_text']
-    for line in map_text.split("\n"):
-        if line.startswith("title"):
-            title = line.split("title ")[1]
-    if title:
-        st.sidebar.markdown(f"### {title}")
-    st.sidebar.code(st.session_state['map_text'])
+#if 'map_text' in st.session_state:
+#    st.sidebar.markdown("### Downloaded Map Data")
+#    map_text = st.session_state['map_text']
+#    for line in map_text.split("\n"):
+#        if line.startswith("title"):
+#            title = line.split("title ")[1]
+#    if title:
+#        st.sidebar.markdown(f"### {title}")
+#    st.sidebar.code(st.session_state['map_text'])
 
 if query:
     with st.spinner("thinking... this can take a while..."):
