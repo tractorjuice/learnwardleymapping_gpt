@@ -80,7 +80,7 @@ if query:
         response = get_chatgpt_response(messages, model)
         messages = update_chat(messages, "assistant", response)
         st.sidebar.write(response)
-        #st.sidebar.write(messages)
+        st.sidebar.write(messages)
         st.session_state.past.append(query)
         st.session_state.generated.append(response)
 
