@@ -56,8 +56,7 @@ def update_chat(messages, role, content):
     return messages
 
 if 'generated' not in st.session_state:
-    get_initial_message()
-    st.sidebar.write("First Run")
+    st.sidebar.write(get_initial_message())
     st.session_state['generated'] = []
     
 if 'past' not in st.session_state:
