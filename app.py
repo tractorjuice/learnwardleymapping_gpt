@@ -75,9 +75,7 @@ if 'messages' not in st.session_state:
     st.session_state['messages'] = get_initial_message()
     message("""
     I'm here to help you learn about and create Wardley Maps. Here are some options for getting started:\n1. Learn: To learn about the components and concepts of a Wardley Map, type "Learn". \n2. Vocabulary: To get a list of common Wardley Map terms and their definitions, type "Vocabulary". \n3. Create: To create your own Wardley Map with step-by-step guidance, type "Create". \nIf you have any specific questions or need clarification on any aspect of Wardley Mapping, feel free to ask.
-    """
-, key=str(0))
-    message("Help?", is_user=True, key='initial_user')
+    """, key=str(0))
 
 if query:
     with st.spinner("thinking... this can take a while..."):
