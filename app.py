@@ -1,9 +1,7 @@
 #Importing required packages
 import streamlit as st
-import requests
 from streamlit_chat import message
 import openai
-import requests
 
 API_ENDPOINT = "https://api.onlinewardleymaps.com/v1/maps/fetch?id="
 OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
