@@ -7,19 +7,13 @@ API_ENDPOINT = "https://api.onlinewardleymaps.com/v1/maps/fetch?id="
 OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
 model = "gpt-4"
 
-html_temp = """
-                <div style="background-color:{};padding:1px">
-                
-                </div>
-                """
-
 st.set_page_config(page_title="Learn Wardley Mapping Bot")
 st.sidebar.title("Learn Wardley Mapping")
-st.sidebar.markdown(html_temp.format("rgba(55, 53, 47, 0.16)"),unsafe_allow_html=True)
+st.divider()
 st.sidebar.markdown("Developed by Mark Craddock](https://twitter.com/mcraddock)", unsafe_allow_html=True)
 st.sidebar.markdown("Current Version: 0.0.1")
 st.sidebar.markdown("Using GPT-4 API")
-st.sidebar.markdown(html_temp.format("rgba(55, 53, 47, 0.16)"),unsafe_allow_html=True)
+st.divider()
     
 def get_initial_message():
     #query = "Help?"
