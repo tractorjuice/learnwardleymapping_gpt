@@ -1,10 +1,6 @@
 #Importing required packages
 import streamlit as st
 import openai
-from streamlit_chat import message
-from langchain.chat_models import ChatOpenAI
-from langchain.schema import AIMessage, HumanMessage, SystemMessage
-from langchain.callbacks import get_openai_callback
 
 API_ENDPOINT = "https://api.onlinewardleymaps.com/v1/maps/fetch?id="
 OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
