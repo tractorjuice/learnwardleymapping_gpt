@@ -81,32 +81,66 @@ def get_chatgpt_response(messages, model=model):
 def update_chat(messages, role, content):
     messages.append({"role": role, "content": content})
     return messages
+
+if "openai_model" not in st.session_state:
+    st.session_state["openai_model"] = MODEL
+
+if "messages" not in st.session_state:
+    st.session_state.messages = []
+
+for message in st.session_state.messages:
+    with st.chat_message(message["role"]):
+        st.markdown(message["content"])
+
+if prompt := st.chat_input("What is up?"):
+    st.session_state.messages.append({"role": "user", "content": prompt})
+    with st.chat_message("user"):
+        st.markdown(prompt)
+
+    with st.chat_message("assistant"):
+        message_placeholder = st.empty()
+        full_response = ""
+        for response in openai.ChatCompletion.create(
+            model=st.session_state["openai_model"],
+            messages=[
+                {"role": m["role"], "content": m["content"]}
+                for m in st.session_state.messages
+            ],
+            stream=True,
+        ):
+            full_response += response.choices[0].delta.get("content", "")
+            message_placeholder.markdown(full_response + "▌")
+        message_placeholder.markdown(full_response)
+    st.session_state.messages.append({"role": "assistant", "content": full_response})
+
+
+
+
+#query = st.text_input("Question: ", value="", key="input")
+
+#if 'generated' not in st.session_state:
+#    st.session_state['generated'] = []
   
-query = st.text_input("Question: ", value="", key="input")
+#if 'past' not in st.session_state:
+#    st.session_state['past'] = []
 
-if 'generated' not in st.session_state:
-    st.session_state['generated'] = []
-    
-if 'past' not in st.session_state:
-    st.session_state['past'] = []
+#if 'messages' not in st.session_state:
+#    st.session_state['messages'] = get_initial_message()
+#    st.session_state.past.append("Help?")
+#    st.session_state.generated.append("""
+#    I'm here to help you learn about and create Wardley Maps. Here are some options for getting started:\n\n1. Learn: To learn about the components and concepts of a Wardley Map, type "Learn". \n2. Vocabulary: To get a list of common Wardley Map terms and their definitions, type "Vocabulary". \n3. Create: To create your own Wardley Map with step-by-step guidance, type "Create". \n\nIf you have any specific questions or need clarification on any aspect of Wardley Mapping, feel free to ask.
+#    """)
 
-if 'messages' not in st.session_state:
-    st.session_state['messages'] = get_initial_message()
-    st.session_state.past.append("Help?")
-    st.session_state.generated.append("""
-    I'm here to help you learn about and create Wardley Maps. Here are some options for getting started:\n\n1. Learn: To learn about the components and concepts of a Wardley Map, type "Learn". \n2. Vocabulary: To get a list of common Wardley Map terms and their definitions, type "Vocabulary". \n3. Create: To create your own Wardley Map with step-by-step guidance, type "Create". \n\nIf you have any specific questions or need clarification on any aspect of Wardley Mapping, feel free to ask.
-    """)
+#if query:
+#    with st.spinner("thinking... this can take a while..."):
+#        messages = st.session_state['messages']
+#        messages = update_chat(messages, "user", query)
+#        response = get_chatgpt_response(messages, MODEL)
+#        messages = update_chat(messages, "assistant", response)
+#        st.session_state.past.append(query)
+#        st.session_state.generated.append(response)
 
-if query:
-    with st.spinner("thinking... this can take a while..."):
-        messages = st.session_state['messages']
-        messages = update_chat(messages, "user", query)
-        response = get_chatgpt_response(messages, MODEL)
-        messages = update_chat(messages, "assistant", response)
-        st.session_state.past.append(query)
-        st.session_state.generated.append(response)
-
-if st.session_state['generated']:
-    for i in range(len(st.session_state['generated'])-1, -1, -1):
-        message(st.session_state["generated"][i], key=str(i))
-        message(st.session_state['past'][i], is_user=True, key=str(i) + '_user')
+#if st.session_state['generated']:
+#    for i in range(len(st.session_state['generated'])-1, -1, -1):
+#        message(st.session_state["generated"][i], key=str(i))
+#        message(st.session_state['past'][i], is_user=True, key=str(i) + '_user')
