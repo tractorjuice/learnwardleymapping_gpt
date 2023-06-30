@@ -94,11 +94,13 @@ if "messages" not in st.session_state:
              Discover the power of Wardley Mapping for strategic planning and decision-making by choosing to 'Learn' about the components of a Wardley Map, or 'Vocabulary' and I will provide a list of common terms and their definitions. or 'Create' your own map with step-by-step guidance.
              If you need assistance, type 'Help' for support. Begin your Wardley Mapping journey now!
              """
-        },
+        })
+    st.session_state.messages.append(   
         {
             "role": "user",
             "content": "Help?"
-        },
+        })
+        st.session_state.messages.append(
         {
             "role": "assistant",
             "content": """
