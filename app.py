@@ -29,7 +29,7 @@ if "openai_model" not in st.session_state:
     st.session_state["openai_model"] = MODEL
 
 if "messages" not in st.session_state:
-    #st.session_state.messages = []
+    st.session_state.messages = []
     st.session_state.messages.append({
             "role": "system",
             "content": f"""
