@@ -100,7 +100,7 @@ if "messages" not in st.session_state:
             "role": "user",
             "content": "Help?"
         })
-        st.session_state.messages.append(
+    st.session_state.messages.append(
         {
             "role": "assistant",
             "content": """
