@@ -2,7 +2,6 @@
 import streamlit as st
 import openai
 
-API_ENDPOINT = "https://api.onlinewardleymaps.com/v1/maps/fetch?id="
 OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
 #MODEL = "gpt-3"
 #MODEL = "gpt-3.5-turbo"
