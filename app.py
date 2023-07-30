@@ -5,7 +5,7 @@ import promptlayer
 import os
 
 OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
-promptlayer.api_key = os.environ.get("PROMPTLAYER_API_KEY")
+promptlayer.api_key = st.secrets["PROMPTLAYER"]
 #MODEL = "gpt-3"
 #MODEL = "gpt-3.5-turbo"
 #MODEL = "gpt-3.5-turbo-0613"
