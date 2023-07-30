@@ -1,8 +1,11 @@
 #Importing required packages
 import streamlit as st
 import openai
+import promptlayer
+import os
 
 OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
+promptlayer.api_key = os.environ.get("PROMPTLAYER_API_KEY")
 #MODEL = "gpt-3"
 #MODEL = "gpt-3.5-turbo"
 #MODEL = "gpt-3.5-turbo-0613"
@@ -11,6 +14,9 @@ MODEL = "gpt-3.5-turbo-16k-0613"
 #MODEL = "gpt-4"
 #MODEL = "gpt-4-0613"
 #MODEL = "gpt-4-32k-0613"
+
+# Swap out your 'import openai'
+openai = promptlayer.openai
 
 st.set_page_config(page_title="Learn Wardley Mapping Bot")
 st.sidebar.title("Learn Wardley Mapping")
@@ -70,6 +76,7 @@ if prompt := st.chat_input("What is up?"):
                 for m in st.session_state.messages
             ],
             stream=True,
+            pl_tags=["wardleymapbot"]
         ):
             full_response += response.choices[0].delta.get("content", "")
             message_placeholder.markdown(full_response + "▌")
