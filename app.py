@@ -2,7 +2,6 @@
 import streamlit as st
 import openai
 import promptlayer
-import os
 
 OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
 promptlayer.api_key = st.secrets["PROMPTLAYER"]
