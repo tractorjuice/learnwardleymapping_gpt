@@ -5,5 +5,5 @@
 Learn Wardley Mapping by chatting with this specially configured chatbot.
 
 <div align="center">
-  <img src="images/learnwardleymapping.png" alt="Learn Wardley Mapping Chatbot">
+  <img src="learnwardleymapping.png" alt="Learn Wardley Mapping Chatbot">
 </div>
