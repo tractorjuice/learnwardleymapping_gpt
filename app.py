@@ -27,9 +27,6 @@ st.sidebar.divider()
 # Check if the user has provided an API key, otherwise default to the secret
 user_openai_api_key = st.sidebar.text_input("Enter your OpenAI API Key:", placeholder="sk-...", type="password")
 
-# Swap out your 'import openai'
-openai = promptlayer.openai
-
 if "openai_model" not in st.session_state:
     st.session_state["openai_model"] = MODEL
 
@@ -74,7 +71,7 @@ for message in st.session_state.messages:
         with st.chat_message(message["role"]):
             st.markdown(message["content"])
 
-if not openai_api_key:
+if not user_openai_api_key:
     if prompt := st.chat_input("What is up?"):
         st.session_state.messages.append({"role": "user", "content": prompt})
         with st.chat_message("user"):
