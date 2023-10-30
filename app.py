@@ -2,6 +2,7 @@
 import streamlit as st
 import openai
 import promptlayer
+import uuid
 
 OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
 promptlayer.api_key = st.secrets["PROMPTLAYER"]
@@ -27,6 +28,9 @@ st.sidebar.divider()
 
 if "openai_model" not in st.session_state:
     st.session_state["openai_model"] = MODEL
+
+if "session_id" not in st.session_state:
+    st.session_state.session_id = str(uuid.uuid4())
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
@@ -75,7 +79,7 @@ if prompt := st.chat_input("What is up?"):
                 for m in st.session_state.messages
             ],
             stream=True,
-            pl_tags=["wardleymapbot"]
+            pl_tags=["wardleymapbot", st.session_state.session_id],
         ):
             full_response += response.choices[0].delta.get("content", "")
             message_placeholder.markdown(full_response + "▌")
