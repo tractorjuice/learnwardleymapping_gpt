@@ -33,7 +33,7 @@ if "openai_model" not in st.session_state:
 if user_openai_api_key:
     # If the user has provided an API key, use it
     # Swap out openai for promptlayer
-    try
+    try:
         promptlayer.api_key = st.secrets["PROMPTLAYER"]
         openai = promptlayer.openai
     openai.api_key = user_openai_api_key
