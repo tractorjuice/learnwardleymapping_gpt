@@ -36,7 +36,8 @@ if user_openai_api_key:
     try:
         promptlayer.api_key = st.secrets["PROMPTLAYER"]
         openai = promptlayer.openai
-    openai.api_key = user_openai_api_key
+    except:
+        openai.api_key = user_openai_api_key
 else:
     st.warning("Please enter your OpenAI API key", icon="⚠️")
 
