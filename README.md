@@ -1,4 +1,4 @@
-# Learn Wardley Mapping Bot
+# Learn Wardley Mapping AI Assistant
 
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://learnwardleymapping.streamlit.app/)
 
