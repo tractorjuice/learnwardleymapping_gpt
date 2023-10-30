@@ -30,9 +30,6 @@ user_openai_api_key = st.sidebar.text_input("Enter your OpenAI API Key:", placeh
 if "openai_model" not in st.session_state:
     st.session_state["openai_model"] = MODEL
 
-if "messages" not in st.session_state:
-    st.session_state["messages"] = []
-
 if user_openai_api_key:
     # If the user has provided an API key, use it
     # Swap out openai for promptlayer
