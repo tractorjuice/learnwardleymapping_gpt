@@ -18,19 +18,20 @@ MODEL = "gpt-3.5-turbo-16k-0613"
 # Swap out your 'import openai'
 openai = promptlayer.openai
 
+if "session_id" not in st.session_state:
+    st.session_state.session_id = str(uuid.uuid4())
+    
 st.set_page_config(page_title="Learn Wardley Mapping Bot")
 st.sidebar.title("Learn Wardley Mapping")
 st.sidebar.divider()
 st.sidebar.markdown("Developed by Mark Craddock](https://twitter.com/mcraddock)", unsafe_allow_html=True)
-st.sidebar.markdown("Current Version: 0.2.0")
+st.sidebar.markdown("Current Version: 0.5.0")
 st.sidebar.markdown("Using GPT-4 API")
+st.sidebar.markdown(st.session_state.session_id)
 st.sidebar.divider()
 
 if "openai_model" not in st.session_state:
     st.session_state["openai_model"] = MODEL
-
-if "session_id" not in st.session_state:
-    st.session_state.session_id = str(uuid.uuid4())
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
