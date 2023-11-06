@@ -2,7 +2,7 @@ import streamlit as st
 import openai
 
 # Set your OpenAI API key here
-openai.api_key = st.secrets["openai_secret"]
+openai.api_key = st.secrets["OPENAI_API_KEY"]
 
 # Define the initial instructions for the assistant
 initial_instructions = "You are a helpful assistant."
