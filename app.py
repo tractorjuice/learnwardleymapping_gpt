@@ -77,7 +77,7 @@ messages = client.beta.threads.messages.list(
   thread_id=st.session_state.thred.id
 )
 
-st.write.json("Messages: ", messages)
+st.write("Messages: ", messages)
 
 prompt = st.chat_input("How can I help you?")
 if prompt:
