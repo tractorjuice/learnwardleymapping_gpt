@@ -35,7 +35,7 @@ st.sidebar.divider()
 openai.api_key = st.secrets["OPENAI_API_KEY"]
 
 if "assistant" not in st.session_state:
-    st.session_state.session_id = client.beta.assistants.create(
+    st.session_state.assistant = client.beta.assistants.create(
         name="Learn Wardley Mapping",
         instructions="""
             Interact with LearnWardleyMapping, your personal guide to learning and creating Wardley Maps.
@@ -45,7 +45,7 @@ if "assistant" not in st.session_state:
         tools=[{"type": "code_interpreter"}],
         model="gpt-4-1106-preview"
     )
-print(assistant)
+print(st.session_state.assistant)
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
