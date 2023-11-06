@@ -74,7 +74,7 @@ run = client.beta.threads.runs.retrieve(
 st.write(run)
 
 messages = client.beta.threads.messages.list(
-  thread_id=thread.id
+  thread_id=st.session_state.thred.id
 )
 
 print(messages)
