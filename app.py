@@ -50,56 +50,14 @@ print(st.session_state.assistant)
 if "thread" not in st.session_state:
     st.session_state.thred = client.beta.threads.create()
 
-if "messages" not in st.session_state:
-    st.session_state.messages = []
-    st.session_state.messages.append({
-            "role": "system",
-            "content": f"""
-             Interact with LearnWardleyMappingBot, your personal guide to learning and creating Wardley Maps.
-             Discover the power of Wardley Mapping for strategic planning and decision-making by choosing to 'Learn' about the components of a Wardley Map, or 'Vocabulary' and I will provide a list of common terms and their definitions. or 'Create' your own map with step-by-step guidance.
-             If you need assistance, type 'Help' for support. Begin your Wardley Mapping journey now!
-             """
-        })
-    st.session_state.messages.append(   
-        {
-            "role": "user",
-            "content": "Help?"
-        })
-    st.session_state.messages.append(
-        {
-            "role": "assistant",
-            "content": """
-            I'm here to help you learn about and create Wardley Maps. Here are some options for getting started:
-            1. Learn: To learn about the components and concepts of a Wardley Map, type "Learn".
-            2. Vocabulary: To get a list of common Wardley Map terms and their definitions, type "Vocabulary".
-            3. Create: To create your own Wardley Map with step-by-step guidance, type "Create".
-            If you have any specific questions or need clarification on any aspect of Wardley Mapping, feel free to ask.
-            """
-        })
+message = client.beta.threads.messages.create(
+    thread_id=st.session_state.thred.id,
+    role="user",
+    content="What is Wardley Mapping. Can you help me?"
+)
 
-for message in st.session_state.messages:
-    if message["role"] in ["user", "assistant"]:
-        with st.chat_message(message["role"]):
-            st.markdown(message["content"])
-
-if prompt := st.chat_input("How can I help with Wardley Mapping?"):
-    st.session_state.messages.append({"role": "user", "content": prompt})
-    with st.chat_message("user"):
-        st.markdown(prompt)
-
-    with st.chat_message("assistant"):
-        message_placeholder = st.empty()
-        full_response = ""
-        for response in openai.ChatCompletion.create(
-            model=st.session_state["openai_model"],
-            messages=[
-                {"role": m["role"], "content": m["content"]}
-                for m in st.session_state.messages
-            ],
-            stream=True,
-            pl_tags=["learnwardleymapping", st.session_state.session_id],
-        ):
-            full_response += response.choices[0].delta.get("content", "")
-            message_placeholder.markdown(full_response + "▌")
-        message_placeholder.markdown(full_response)
-    st.session_state.messages.append({"role": "assistant", "content": full_response})
+run = client.beta.threads.runs.create(
+  thread_id=st.session_state.thred.id,
+  assistant_id=st.session_state.assistant.id,
+  instructions="Please address the user as Jane Doe. The user has a premium account."
+)
