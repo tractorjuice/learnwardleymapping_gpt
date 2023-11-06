@@ -48,7 +48,7 @@ if "assistant" not in st.session_state:
         tools=[{"type": "code_interpreter"}],
         model="gpt-4-1106-preview"
     )
-st.write.json("Assistant: ", st.session_state.assistant)
+st.write("Assistant: ", st.session_state.assistant)
 
 if "thread" not in st.session_state:
     st.session_state.thred = client.beta.threads.create()
@@ -58,23 +58,27 @@ message = client.beta.threads.messages.create(
     role="user",
     content="What is Wardley Mapping. Can you help me?"
 )
-st.write.json("Message: ", message)
+st.write("Message: ", message)
 
 st.session_state.run = client.beta.threads.runs.create(
   thread_id=st.session_state.thred.id,
   assistant_id=st.session_state.assistant.id,
   instructions="What is Inertia?"
 )
-st.write.json("Run 1: ", st.session_state.run)
+st.write("Run 1: ", st.session_state.run)
 
 run = client.beta.threads.runs.retrieve(
   thread_id=st.session_state.thred.id,
   run_id=st.session_state.run.id
 )
-st.write.json("Run 2: ", run)
+st.write("Run 2: ", run)
 
 messages = client.beta.threads.messages.list(
   thread_id=st.session_state.thred.id
 )
 
 st.write.json("Messages: ", messages)
+
+prompt = st.chat_input("How can I help you?")
+if prompt:
+    st.write(f"User has sent the following prompt: {prompt}")
