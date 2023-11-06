@@ -46,4 +46,12 @@ def send_message(message_text):
 user_message = st.text_input("Your Message", key="user_message")
 
 # Button to send the message
-if st.button("Send")
+if st.button("Send") and user_message:
+    send_message(user_message)
+
+# Display chat messages
+for chat in reversed(st.session_state.messages):
+    if chat['sender'] == 'User':
+        st.text_area("", value=chat['message'], height=75, key=f"user_{chat['message']}")
+    else:
+        st.text_area("", value=chat['message'], height=75, key=f"assistant_{chat['message']}", bg_color="#F0F2F6")
