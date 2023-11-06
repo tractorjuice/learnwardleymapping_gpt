@@ -10,8 +10,12 @@ import uuid
 #MODEL = "gpt-3.5-turbo-16k"
 MODEL = "gpt-3.5-turbo-16k-0613"
 #MODEL = "gpt-4"
+#MODEL = "gpt-4-0314" # Legacy
 #MODEL = "gpt-4-0613"
+#MODEL = "gpt-4-32k-0314" # Legacy
 #MODEL = "gpt-4-32k-0613"
+#MODEL = "gpt-4-1106-preview"
+#MODEL = "gpt-4-vision-preview"
 
 if "session_id" not in st.session_state:
     st.session_state.session_id = str(uuid.uuid4())
