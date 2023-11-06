@@ -93,7 +93,7 @@ for message in messages.data:
         # Assuming that 'content_part' is a MessageContentText object with an attribute 'text'
         # which in turn is an object with an attribute 'value' that contains the actual message text
         message_text = content_part.text.value
-        print(f"{message.role.capitalize()} said: {message_text}")
+        st.write(f"{message.role.capitalize()} said: {message_text}")
 
 
 prompt = st.chat_input("How can I help you?")
