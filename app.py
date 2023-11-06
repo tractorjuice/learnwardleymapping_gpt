@@ -3,6 +3,9 @@ import streamlit as st
 import openai
 import uuid
 
+from openai import OpenAI
+client = OpenAI()
+
 #MODEL = "gpt-3"
 #MODEL = "gpt-3.5-turbo"
 #MODEL = "gpt-3.5-turbo-0613"
