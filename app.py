@@ -61,14 +61,14 @@ message = client.beta.threads.messages.create(
 st.write("Message: ", message)
 
 st.session_state.run = client.beta.threads.runs.create(
-  thread_id=st.session_state.thred,
+  thread_id=st.session_state.thred.id,
   assistant_id=st.session_state.assistant,
   instructions="What is Inertia?"
 )
 st.write("Run 1: ", st.session_state.run)
 
 run = client.beta.threads.runs.retrieve(
-  thread_id=st.session_state.thred,
+  thread_id=st.session_state.thred.id,
   run_id=st.session_state.run
 )
 st.write("Run 2: ", run)
