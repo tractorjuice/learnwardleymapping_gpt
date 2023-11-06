@@ -55,9 +55,12 @@ message = client.beta.threads.messages.create(
     role="user",
     content="What is Wardley Mapping. Can you help me?"
 )
+st.write("Message: ", message)
 
 run = client.beta.threads.runs.create(
   thread_id=st.session_state.thred.id,
   assistant_id=st.session_state.assistant.id,
   instructions="Please address the user as Jane Doe. The user has a premium account."
 )
+st.write("Run: ", run)
+
