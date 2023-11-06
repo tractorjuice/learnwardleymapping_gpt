@@ -51,33 +51,33 @@ if "assistant" not in st.session_state:
 st.write("Assistant: ", st.session_state.assistant)
 
 if "thread" not in st.session_state:
-    st.session_state.thred = client.beta.threads.create()
+    st.session_state.thread = client.beta.threads.create()
 
 message = client.beta.threads.messages.create(
-    thread_id=st.session_state.thred.id,
+    thread_id=st.session_state.thread.id,
     role="user",
     content="What is Wardley Mapping. Can you help me?"
 )
 st.write("Message: ", message)
 
 st.session_state.run = client.beta.threads.runs.create(
-  thread_id=st.session_state.thred.id,
+  thread_id=st.session_state.thread.id,
   assistant_id=st.session_state.assistant.id,
   instructions="What is Inertia?"
 )
 st.write("Run 1: ", st.session_state.run)
 
 run = client.beta.threads.runs.retrieve(
-  thread_id=st.session_state.thred.id,
+  thread_id=st.session_state.thread.id,
   run_id=st.session_state.run.id
 )
 st.write("Run 2: ", run)
 
-thread_messages = openai.beta.threads.messages.list(st.session_state.thred.id)
+thread_messages = openai.beta.threads.messages.list(st.session_state.thread.id)
 st.write("Messages: ", thread_messages.data)
 
 messages = client.beta.threads.messages.list(
-  thread_id=st.session_state.thred.id
+  thread_id=st.session_state.thread.id
 )
 
 st.write("Messages: ", messages)
