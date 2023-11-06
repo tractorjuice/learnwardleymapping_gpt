@@ -54,7 +54,7 @@ if "thread" not in st.session_state:
     st.session_state.thred = client.beta.threads.create()
 
 message = client.beta.threads.messages.create(
-    thread_id=st.session_state.thred,
+    thread_id=st.session_state.thred.id,
     role="user",
     content="What is Wardley Mapping. Can you help me?"
 )
