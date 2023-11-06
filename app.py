@@ -31,6 +31,18 @@ st.sidebar.divider()
 
 openai.api_key = st.secrets["OPENAI_API_KEY"]
 
+if "assistant" not in st.session_state:
+    st.session_state.session_id = client.beta.assistants.create(
+        name="Learn Wardley Mapping",
+        instructions="""
+            Interact with LearnWardleyMapping, your personal guide to learning and creating Wardley Maps.
+            Discover the power of Wardley Mapping for strategic planning and decision-making by choosing to 'Learn' about the components of a Wardley Map, or 'Vocabulary' and I will provide a list of common terms and their definitions. or 'Create' your own map with step-by-step guidance.
+            If you need assistance, type 'Help' for support. Begin your Wardley Mapping journey now!
+            """,
+        tools=[{"type": "code_interpreter"}],
+        model="gpt-4-1106-preview"
+    )
+
 if "messages" not in st.session_state:
     st.session_state.messages = []
     st.session_state.messages.append({
