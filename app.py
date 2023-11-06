@@ -48,7 +48,7 @@ if "assistant" not in st.session_state:
         tools=[{"type": "code_interpreter"}],
         model="gpt-4-1106-preview"
     )
-st.code("Assistant: ", st.session_state.assistant)
+st.json("Assistant: ", st.session_state.assistant)
 
 if "thread" not in st.session_state:
     st.session_state.thred = client.beta.threads.create()
@@ -58,23 +58,23 @@ message = client.beta.threads.messages.create(
     role="user",
     content="What is Wardley Mapping. Can you help me?"
 )
-st.code("Message: ", message)
+st.json("Message: ", message)
 
 st.session_state.run = client.beta.threads.runs.create(
   thread_id=st.session_state.thred.id,
   assistant_id=st.session_state.assistant.id,
   instructions="What is Inertia?"
 )
-st.code("Run 1: ", st.session_state.run)
+st.json("Run 1: ", st.session_state.run)
 
 run = client.beta.threads.runs.retrieve(
   thread_id=st.session_state.thred.id,
   run_id=st.session_state.run.id
 )
-st.code("Run 2: ", run)
+st.json("Run 2: ", run)
 
 messages = client.beta.threads.messages.list(
   thread_id=st.session_state.thred.id
 )
 
-st.code("Messages: ", messages)
+st.json("Messages: ", messages)
