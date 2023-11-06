@@ -62,7 +62,7 @@ st.write("Message: ", message)
 
 st.session_state.run = client.beta.threads.runs.create(
   thread_id=st.session_state.thred.id,
-  assistant_id=st.session_state.assistant,
+  assistant_id=st.session_state.assistant.id,
   instructions="What is Inertia?"
 )
 st.write("Run 1: ", st.session_state.run)
@@ -77,7 +77,7 @@ thread_messages = openai.beta.threads.messages.list(st.session_state.thred)
 st.write("Messages: ", thread_messages.data)
 
 messages = client.beta.threads.messages.list(
-  thread_id=st.session_state.thred
+  thread_id=st.session_state.thred.id
 )
 
 st.write("Messages: ", messages)
