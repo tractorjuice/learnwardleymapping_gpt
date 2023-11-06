@@ -65,9 +65,10 @@ st.session_state.run = client.beta.threads.runs.create(
   assistant_id=st.session_state.assistant.id,
   instructions="Please address the user as Jane Doe. The user has a premium account."
 )
-st.write("Run: ", run)
+st.write("Run: ", st.session_state.run)
 
 run = client.beta.threads.runs.retrieve(
   thread_id=st.session_state.thred.id,
   run_id=st.session_state.run.id
 )
+st.write(run)
