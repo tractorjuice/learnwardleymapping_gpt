@@ -82,13 +82,14 @@ messages = client.beta.threads.messages.list(
 
 #st.write("Messages: ", messages)
 
-# Assuming `messages` is the SyncCursorPage[ThreadMessage] object you've received
+# Assuming `thread_messages` is your SyncCursorPage[ThreadMessage] object
 for message in messages.data:
-    # Each message's content is in a list, so iterate through it
+    # Access the 'content' field directly, which is a list of dictionaries
     for content in message.content:
-        # Check if the content is of type 'text'
-        if isinstance(content, MessageContentText):
-            st.write(f"{message.role.capitalize()} said: {content.text.value}")
+        # Each content is a dictionary with a 'text' key
+        # Assuming 'type' is always 'text' for simplicity
+        print(f"{message.role.capitalize()} said: {content['text']['value']}")
+
 
 
 prompt = st.chat_input("How can I help you?")
