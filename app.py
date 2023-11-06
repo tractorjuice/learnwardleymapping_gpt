@@ -47,6 +47,9 @@ if "assistant" not in st.session_state:
     )
 print(st.session_state.assistant)
 
+if "thread" not in st.session_state:
+    st.session_state.thred = client.beta.threads.create()
+
 if "messages" not in st.session_state:
     st.session_state.messages = []
     st.session_state.messages.append({
