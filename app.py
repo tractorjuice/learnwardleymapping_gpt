@@ -48,7 +48,7 @@ if "assistant" not in st.session_state:
         tools=[{"type": "code_interpreter"}],
         model="gpt-4-1106-preview"
     )
-print(st.session_state.assistant)
+print("Assistant: ", st.session_state.assistant)
 
 if "thread" not in st.session_state:
     st.session_state.thred = client.beta.threads.create()
@@ -63,18 +63,18 @@ st.write("Message: ", message)
 st.session_state.run = client.beta.threads.runs.create(
   thread_id=st.session_state.thred.id,
   assistant_id=st.session_state.assistant.id,
-  instructions="Please address the user as Jane Doe. The user has a premium account."
+  instructions="What is Inertia?"
 )
-st.write("Run: ", st.session_state.run)
+st.write("Run 1: ", st.session_state.run)
 
 run = client.beta.threads.runs.retrieve(
   thread_id=st.session_state.thred.id,
   run_id=st.session_state.run.id
 )
-st.write(run)
+st.write("Run 2: ", run)
 
 messages = client.beta.threads.messages.list(
   thread_id=st.session_state.thred.id
 )
 
-print(messages)
+print("Messages: ", messages)
