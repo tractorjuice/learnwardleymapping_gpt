@@ -69,7 +69,7 @@ st.write("Run 1: ", st.session_state.run)
 
 run = client.beta.threads.runs.retrieve(
   thread_id=st.session_state.thred.id,
-  run_id=st.session_state.run
+  run_id=st.session_state.run.id
 )
 st.write("Run 2: ", run)
 
