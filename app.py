@@ -45,6 +45,7 @@ if "assistant" not in st.session_state:
         tools=[{"type": "code_interpreter"}],
         model="gpt-4-1106-preview"
     )
+print(assistant)
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
