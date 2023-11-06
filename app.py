@@ -73,7 +73,7 @@ run = client.beta.threads.runs.retrieve(
 )
 st.write("Run 2: ", run)
 
-thread_messages = openai.beta.threads.messages.list(st.session_state.thred)
+thread_messages = openai.beta.threads.messages.list(st.session_state.thred.id)
 st.write("Messages: ", thread_messages.data)
 
 messages = client.beta.threads.messages.list(
