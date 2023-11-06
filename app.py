@@ -21,6 +21,9 @@ MODEL = "gpt-4-1106-preview"
 
 if "session_id" not in st.session_state:
     st.session_state.session_id = str(uuid.uuid4())
+
+if "run" not in st.session_state:
+    st.session_state.run = []
     
 st.set_page_config(page_title="Learn Wardley Mapping")
 st.sidebar.title("Learn Wardley Mapping")
@@ -57,10 +60,14 @@ message = client.beta.threads.messages.create(
 )
 st.write("Message: ", message)
 
-run = client.beta.threads.runs.create(
+st.session_state.run = client.beta.threads.runs.create(
   thread_id=st.session_state.thred.id,
   assistant_id=st.session_state.assistant.id,
   instructions="Please address the user as Jane Doe. The user has a premium account."
 )
 st.write("Run: ", run)
 
+run = client.beta.threads.runs.retrieve(
+  thread_id=st.session_state.thred.id,
+  run_id=st.session_state.run.id
+)
