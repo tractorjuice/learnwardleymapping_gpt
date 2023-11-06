@@ -80,7 +80,16 @@ messages = client.beta.threads.messages.list(
   thread_id=st.session_state.thread.id
 )
 
-st.write("Messages: ", messages)
+#st.write("Messages: ", messages)
+
+# Assuming `messages` is the SyncCursorPage[ThreadMessage] object you've received
+for message in messages.data:
+    # Each message's content is in a list, so iterate through it
+    for content in message.content:
+        # Check if the content is of type 'text'
+        if isinstance(content, MessageContentText):
+            st.write(f"{message.role.capitalize()} said: {content.text.value}")
+
 
 prompt = st.chat_input("How can I help you?")
 if prompt:
