@@ -57,7 +57,8 @@ if "thread" not in st.session_state:
     st.session_state.thread = client.beta.threads.create()
 
 if prompt := st.chat_input("How can I help you?"):
-    st.write(f"User has sent the following prompt: {prompt}")
+    with st.chat_message('user'):
+        st.write(prompt)
 
     st.session_state.messages = client.beta.threads.messages.create(
         thread_id=st.session_state.thread.id,
