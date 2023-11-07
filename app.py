@@ -66,37 +66,12 @@ if prompt := st.chat_input("How can I help you?"):
     st.session_state.run = client.beta.threads.runs.create(
       thread_id=st.session_state.thread.id,
       assistant_id=st.session_state.assistant.id,
-      instructions="What is Inertia?"
     )
     st.sidebar.write("Run 1: ", st.session_state.run)
-    
-    run = client.beta.threads.runs.retrieve(
-      thread_id=st.session_state.thread.id,
-      run_id=st.session_state.run.id
-    )
-    st.sidebar.write("Run 2: ", run)
-    
-    thread_messages = openai.beta.threads.messages.list(st.session_state.thread.id)
-    st.sidebar.write("Messages: ", thread_messages.data)
-    
+      
     messages = client.beta.threads.messages.list(
       thread_id=st.session_state.thread.id
     )
-    
-    # Iterate over each ThreadMessage object in the data list
-    #for message in messages.data:
-    #    for content_part in message.content:
-    #        # Assuming that 'content_part' is a MessageContentText object with an attribute 'text'
-    #        # which in turn is an object with an attribute 'value' that contains the actual message text
-    #        message_text = content_part.text.value
-    #        st.write(f"{message.role} said: {message_text}")#
-
-
-    #for message in messages.data:
-    #    if message["role"] in ["user", "assistant"]:
-    #        with st.chat_message(message["role"]):
-    #            st.markdown(message["content"])
-
 
     for message in messages.data:
         # Check if the message role is either 'user' or 'assistant'
