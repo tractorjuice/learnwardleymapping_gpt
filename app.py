@@ -18,13 +18,7 @@ client = OpenAI()
 #MODEL = "gpt-4-32k-0613"
 MODEL = "gpt-4-1106-preview"
 #MODEL = "gpt-4-vision-preview"
-
-if "session_id" not in st.session_state:
-    st.session_state.session_id = str(uuid.uuid4())
-
-if "run" not in st.session_state:
-    st.session_state.run = []
-    
+   
 st.set_page_config(page_title="Learn Wardley Mapping")
 st.sidebar.title("Learn Wardley Mapping")
 st.sidebar.divider()
@@ -35,12 +29,14 @@ st.sidebar.markdown(st.session_state.session_id)
 st.sidebar.divider()
 # Check if the user has provided an API key, otherwise default to the secret
 
-openai.api_key = st.secrets["OPENAI_API_KEY"]
+if "run" not in st.session_state:
+    st.session_state.run = []
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
     
 if "assistant" not in st.session_state:
+    openai.api_key = st.secrets["OPENAI_API_KEY"]
     st.session_state.assistant = client.beta.assistants.create(
         name="Learn Wardley Mapping",
         instructions="""
@@ -51,7 +47,6 @@ if "assistant" not in st.session_state:
         tools=[{"type": "code_interpreter"}],
         model="gpt-4-1106-preview"
     )
-st.sidebar.write("Assistant: ", st.session_state.assistant)
 
 if "thread" not in st.session_state:
     st.session_state.thread = client.beta.threads.create()
@@ -65,23 +60,22 @@ if prompt := st.chat_input("How can I help you?"):
         role="user",
         content=prompt
     )
-    st.sidebar.write("Message: ", st.session_state.messages)
 
+if st.session_state.run.status not "completed":
     st.session_state.run = client.beta.threads.runs.create(
       thread_id=st.session_state.thread.id,
       assistant_id=st.session_state.assistant.id,
     )
-    st.sidebar.write("Run 1: ", st.session_state.run)
-      
+    st.rerun()
+
+if st.session_state.run.status = "completed":
     st.session_state.messages = client.beta.threads.messages.list(
       thread_id=st.session_state.thread.id
     )
 
-    if st.session_state.messages:
-        for message in st.session_state.messages.data:
-            if message.role in ["user", "assistant"]:
-                with st.chat_message(message.role):
-                    for content_part in message.content:
-                        message_text = content_part.text.value
-                        st.markdown(message_text)
-    st.rerun()
+    for message in st.session_state.messages.data:
+        if message.role in ["user", "assistant"]:
+            with st.chat_message(message.role):
+                for content_part in message.content:
+                    message_text = content_part.text.value
+                    st.markdown(message_text)
