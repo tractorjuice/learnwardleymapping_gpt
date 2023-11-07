@@ -50,6 +50,13 @@ if "assistant" not in st.session_state:
     )
 
 # Check the run status and act accordingly
+if hasattr(st.session_state.run, 'status') and st.session_state.run.status != "failed":
+    st.chat_message('assistant'):
+        st.write("Run failed, retying ......")
+    time.sleep(3) # Wait 1 second before checking run status
+    st.rerun()
+    
+# Check the run status and act accordingly
 if hasattr(st.session_state.run, 'status') and st.session_state.run.status != "completed":
     st.session_state.run = client.beta.threads.runs.retrieve(
         thread_id=st.session_state.thread.id,
