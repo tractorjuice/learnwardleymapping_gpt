@@ -105,7 +105,7 @@ if hasattr(st.session_state.run, 'status') and st.session_state.run.status == "f
         st.rerun()
     else:
         with st.chat_message('assistant'):
-            st.error("FAILED: The OpenAI API is in beta testing. Please try again later ......")
+            st.error("FAILED: The OpenAI API is We're currently processing too many requests. Please try again later ......")
         
 # Check the run status and act accordingly
 if hasattr(st.session_state.run, 'status') and st.session_state.run.status != "completed":
