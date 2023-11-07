@@ -76,9 +76,9 @@ if prompt := st.chat_input("How can I help you?"):
       thread_id=st.session_state.thread.id
     )
 
-for message in st.session_state.messages.data:
-    if message.role in ["user", "assistant"]:
-        with st.chat_message(message.role):
-            for content_part in message.content:
-                message_text = content_part.text.value
-                st.markdown(message_text)
+    for message in st.session_state.messages.data:
+        if message.role in ["user", "assistant"]:
+            with st.chat_message(message.role):
+                for content_part in message.content:
+                    message_text = content_part.text.value
+                    st.markdown(message_text)
