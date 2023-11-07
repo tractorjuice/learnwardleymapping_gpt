@@ -30,7 +30,7 @@ st.sidebar.divider()
 # Check if the user has provided an API key, otherwise default to the secret
 
 if "session_id" not in st.session_state:
-    st.session_state.session_id = str(uuid())
+    st.session_state.session_id = str(uuid.uuid4())
    
 if "run" not in st.session_state:
     st.session_state.run = []
