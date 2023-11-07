@@ -103,7 +103,7 @@ if hasattr(st.session_state.run, 'status') and st.session_state.run.status == "f
     if st.session_state.retry_error < 3:
         time.sleep(3) # Wait 3 second before checking run status
         st.rerun()
-    elif:
+    else:
         with st.chat_message('assistant'):
             st.write("Failed ......")
         
