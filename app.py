@@ -84,3 +84,4 @@ if st.session_state.messages:
                 for content_part in message.content:
                     message_text = content_part.text.value
                     st.markdown(message_text)
+st.rerun()
