@@ -107,12 +107,10 @@ if prompt := st.chat_input("How can I help you?"):
     for message in messages.data:
         # Check if the message role is either 'user' or 'assistant'
         if message.role in ["user", "assistant"]:
-            # Use the Streamlit chat_message container for displaying messages
-            with st.chat_message_container(message.role):
-                # Loop through the content part of the message
-                for content_part in message.content:
-                    message_text = content_part.text.value
-                    # Render the message text as Markdown
-                    st.markdown(message_text)
+            # Loop through the content part of the message
+            for content_part in message.content:
+                message_text = content_part.text.value
+                # Render the message text as Markdown
+                st.markdown(message_text)
 
 
