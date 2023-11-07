@@ -47,23 +47,6 @@ if "assistant" not in st.session_state:
     # Create a new thread for this session
     st.session_state.thread = client.beta.threads.create()
 
-if prompt := st.chat_input("How can I help you?"):
-    with st.chat_message('user'):
-        st.write(prompt)
-
-    # Add message to the thread
-    st.session_state.messages = client.beta.threads.messages.create(
-        thread_id=st.session_state.thread.id,
-        role="user",
-        content=prompt
-    )
-
-    # Do a run to process the messages in the thread
-    st.session_state.run = client.beta.threads.runs.create(
-        thread_id=st.session_state.thread.id,
-        assistant_id=st.session_state.assistant.id,
-    )
-
 # Check the run status and act accordingly
 if hasattr(st.session_state.run, 'status') and st.session_state.run.status != "completed":
     st.session_state.run = client.beta.threads.runs.retrieve(
@@ -87,3 +70,19 @@ elif hasattr(st.session_state.run, 'status') and st.session_state.run.status == 
                     message_text = content_part.text.value
                     st.markdown(message_text)
                     
+if prompt := st.chat_input("How can I help you?"):
+    with st.chat_message('user'):
+        st.write(prompt)
+
+    # Add message to the thread
+    st.session_state.messages = client.beta.threads.messages.create(
+        thread_id=st.session_state.thread.id,
+        role="user",
+        content=prompt
+    )
+
+    # Do a run to process the messages in the thread
+    st.session_state.run = client.beta.threads.runs.create(
+        thread_id=st.session_state.thread.id,
+        assistant_id=st.session_state.assistant.id,
+    )
