@@ -56,6 +56,14 @@ st.sidebar.write("Assistant: ", st.session_state.assistant)
 if "thread" not in st.session_state:
     st.session_state.thread = client.beta.threads.create()
 
+if st.session_state.messages.data::
+    for message in st.session_state.messages.data:
+        if message.role in ["user", "assistant"]:
+            with st.chat_message(message.role):
+                for content_part in message.content:
+                    message_text = content_part.text.value
+                    st.markdown(message_text)
+
 if prompt := st.chat_input("How can I help you?"):
     with st.chat_message('user'):
         st.write(prompt)
@@ -76,10 +84,3 @@ if prompt := st.chat_input("How can I help you?"):
     st.session_state.messages = client.beta.threads.messages.list(
       thread_id=st.session_state.thread.id
     )
-
-    for message in st.session_state.messages.data:
-        if message.role in ["user", "assistant"]:
-            with st.chat_message(message.role):
-                for content_part in message.content:
-                    message_text = content_part.text.value
-                    st.markdown(message_text)
