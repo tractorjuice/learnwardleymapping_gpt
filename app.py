@@ -64,19 +64,41 @@ if prompt := st.chat_input("How can I help you?"):
         content=prompt
     )
 
-# Check if the run has not completed, and if not, create one
-if st.session_state.run['status'] != "completed":
-    run_response = client.beta.threads.runs.create(
+# Check the run status and act accordingly
+if hasattr(st.session_state.run, 'status') and st.session_state.run.status != "completed":
+    # If the run status is not 'completed', handle accordingly
+    # You could display a message to the user or take some other action
+    st.write("The run is still in progress. Please wait.")
+
+elif hasattr(st.session_state.run, 'status') and st.session_state.run.status == "completed":
+    # If the run status is 'completed', proceed to handle the completed run
+    # Retrieve the messages and display them
+    st.session_state.messages = client.beta.threads.messages.list(
+        thread_id=st.session_state.thread.id
+    )
+    
+    for message in st.session_state.messages.data:
+        if message.role in ["user", "assistant"]:
+            with st.chat_message(message.role):
+                for content_part in message.content:
+                    # Ensure the content_part is of the expected type
+                    if isinstance(content_part, MessageContentText):
+                        message_text = content_part.text.value
+                        st.markdown(message_text)
+
+# ... any additional code ...
+
+
+# Check the run status and act accordingly
+if hasattr(st.session_state.run, 'status') and st.session_state.run.status != "completed":
+    st.session_state.run = client.beta.threads.runs.create(
         thread_id=st.session_state.thread.id,
         assistant_id=st.session_state.assistant.id,
     )
-    # Update the run in session state
-    st.session_state.run = run_response
-    # Use st.rerun() to update the page with the new run status
     st.rerun()
 
 # If the run is completed, display the messages
-if st.session_state.runrun['status'] == "completed":
+elif hasattr(st.session_state.run, 'status') and st.session_state.run.status == "completed":
     # Retrieve the list of messages
     messages_response = client.beta.threads.messages.list(
         thread_id=st.session_state.thread.id
