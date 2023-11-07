@@ -23,7 +23,7 @@ if "session_id" not in st.session_state:
     st.session_state.session_id = str(uuid.uuid4())
 
 if "run" not in st.session_state:
-    st.session_state.run = []
+    st.session_state.run = {"status": None}
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
