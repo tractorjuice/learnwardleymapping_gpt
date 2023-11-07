@@ -27,8 +27,8 @@ if "run" not in st.session_state:
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-if "error" not in st.session_state:
-    st.session_state.error = 1
+if "retry_error" not in st.session_state:
+    st.session_state.retry_error = 0
 
 st.set_page_config(page_title="Learn Wardley Mapping")
 st.sidebar.title("Learn Wardley Mapping")
@@ -83,24 +83,26 @@ if prompt := st.chat_input("How can I help you?"):
         thread_id=st.session_state.thread.id,
         assistant_id=st.session_state.assistant.id,
     )
-    time.sleep(1) # Wait 1 second before checking run status
-    st.rerun()
+    if st.session_state.retry_error < 3:
+        time.sleep(1) # Wait 1 second before checking run status
+        st.rerun()
                     
 # Check the run status and act accordingly
 if hasattr(st.session_state.run, 'status') and st.session_state.run.status == "running":
     with st.chat_message('assistant'):
         st.write("Thinking ......")
-    time.sleep(3) # Wait 1 second before checking run status
-    st.rerun()
+    if st.session_state.retry_error < 3:
+        time.sleep(1) # Wait 1 second before checking run status
+        st.rerun()
 
 # Check the run status and act accordingly
 if hasattr(st.session_state.run, 'status') and st.session_state.run.status == "failed":
     with st.chat_message('assistant'):
         st.write("Run failed, retying ......")
-    st.session_state.error += 1
-    st.write(st.session_state.error)
-    if st.session_state.error < 3:
-        time.sleep(3) # Wait 1 second before checking run status
+    st.session_state.retry_error += 1
+    st.write(st.session_state.retry_error)
+    if st.session_state.retry_error < 3:
+        time.sleep(3) # Wait 3 second before checking run status
         st.rerun()
     
 # Check the run status and act accordingly
@@ -109,5 +111,6 @@ if hasattr(st.session_state.run, 'status') and st.session_state.run.status != "c
         thread_id=st.session_state.thread.id,
         run_id=st.session_state.run.id,
     )
-    time.sleep(1) # Wait 1 second before checking run status
-    st.rerun()    
+    if st.session_state.retry_error < 3:
+        time.sleep(3) # Wait 3 second before checking run status
+        st.rerun()   
