@@ -18,7 +18,16 @@ client = OpenAI()
 #MODEL = "gpt-4-32k-0613"
 MODEL = "gpt-4-1106-preview"
 #MODEL = "gpt-4-vision-preview"
-   
+
+if "session_id" not in st.session_state:
+    st.session_state.session_id = str(uuid.uuid4())
+
+if "run" not in st.session_state:
+    st.session_state.run = []
+
+if "messages" not in st.session_state:
+    st.session_state.messages = []
+
 st.set_page_config(page_title="Learn Wardley Mapping")
 st.sidebar.title("Learn Wardley Mapping")
 st.sidebar.divider()
@@ -28,15 +37,6 @@ st.sidebar.markdown("Using gpt-4-1106-preview API")
 st.sidebar.markdown(st.session_state.session_id)
 st.sidebar.divider()
 # Check if the user has provided an API key, otherwise default to the secret
-
-if "session_id" not in st.session_state:
-    st.session_state.session_id = str(uuid.uuid4())
-   
-if "run" not in st.session_state:
-    st.session_state.run = []
-
-if "messages" not in st.session_state:
-    st.session_state.messages = []
     
 if "assistant" not in st.session_state:
     openai.api_key = st.secrets["OPENAI_API_KEY"]
