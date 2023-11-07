@@ -86,3 +86,4 @@ if prompt := st.chat_input("How can I help you?"):
         thread_id=st.session_state.thread.id,
         assistant_id=st.session_state.assistant.id,
     )
+    st.rerun()
