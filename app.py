@@ -46,7 +46,10 @@ if "assistant" not in st.session_state:
     st.session_state.assistant = openai.beta.assistants.retrieve(st.secrets["OPENAI_ASSISTANT"])
 
     # Create a new thread for this session
-    st.session_state.thread = client.beta.threads.create()
+    st.session_state.thread = client.beta.threads.create(
+        "metadata": {
+            'session_id': st.session_state.session_id,
+        })
 
 # Check the run status and act accordingly
 if hasattr(st.session_state.run, 'status') and st.session_state.run.status != "completed":
