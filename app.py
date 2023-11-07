@@ -1,4 +1,4 @@
-#Importing required packages
+# Importing required packages
 import streamlit as st
 import openai
 import uuid
@@ -13,9 +13,7 @@ client = OpenAI()
 #MODEL = "gpt-3.5-turbo-16k"
 #MODEL = "gpt-3.5-turbo-16k-0613"
 #MODEL = "gpt-4"
-#MODEL = "gpt-4-0314" # Legacy
 #MODEL = "gpt-4-0613"
-#MODEL = "gpt-4-32k-0314" # Legacy
 #MODEL = "gpt-4-32k-0613"
 MODEL = "gpt-4-1106-preview"
 #MODEL = "gpt-4-vision-preview"
@@ -37,7 +35,6 @@ st.sidebar.markdown("Current Version: 0.0.3")
 st.sidebar.markdown("Using gpt-4-1106-preview API")
 st.sidebar.markdown(st.session_state.session_id)
 st.sidebar.divider()
-# Check if the user has provided an API key, otherwise default to the secret
 
 if "assistant" not in st.session_state:
     openai.api_key = st.secrets["OPENAI_API_KEY"]
