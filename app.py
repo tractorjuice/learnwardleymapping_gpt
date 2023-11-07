@@ -55,7 +55,7 @@ if hasattr(st.session_state.run, 'status') and st.session_state.run.status != "c
         thread_id=st.session_state.thread.id,
         run_id=st.session_state.run.id,
     )
-    time.sleep(1) 
+    time.sleep(1) # Wait 1 second before checking run status
     st.rerun()
 
 # If the run is completed, display the messages
@@ -89,5 +89,5 @@ if prompt := st.chat_input("How can I help you?"):
         thread_id=st.session_state.thread.id,
         assistant_id=st.session_state.assistant.id,
     )
-    time.sleep(1) 
+    time.sleep(1) # Wait 1 second before checking run status
     st.rerun()
