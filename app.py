@@ -90,10 +90,29 @@ if prompt := st.chat_input("How can I help you?"):
     # Assuming `thread_messages` is your SyncCursorPage[ThreadMessage] object containing your data
     
     # Iterate over each ThreadMessage object in the data list
+    #for message in messages.data:
+    #    for content_part in message.content:
+    #        # Assuming that 'content_part' is a MessageContentText object with an attribute 'text'
+    #        # which in turn is an object with an attribute 'value' that contains the actual message text
+    #        message_text = content_part.text.value
+    #        st.write(f"{message.role} said: {message_text}")#
+
+
+    #for message in messages.data:
+    #    if message["role"] in ["user", "assistant"]:
+    #        with st.chat_message(message["role"]):
+    #            st.markdown(message["content"])
+
+
     for message in messages.data:
-        # Each ThreadMessage object has a 'content' list which contains MessageContentText objects
-        for content_part in message.content:
-            # Assuming that 'content_part' is a MessageContentText object with an attribute 'text'
-            # which in turn is an object with an attribute 'value' that contains the actual message text
-            message_text = content_part.text.value
-            st.write(f"{message.role.capitalize()} said: {message_text}")
+        # Check if the message role is either 'user' or 'assistant'
+        if message.role in ["user", "assistant"]:
+            # Use the Streamlit chat_message container for displaying messages
+            with st.chat_message_container(message.role):
+                # Loop through the content part of the message
+                for content_part in message.content:
+                    message_text = content_part.text.value
+                    # Render the message text as Markdown
+                    st.markdown(message_text)
+
+
