@@ -87,32 +87,34 @@ if prompt := st.chat_input("How can I help you?"):
         time.sleep(1) # Wait 1 second before checking run status
         st.rerun()
                     
-# Check the run status and act accordingly
-if hasattr(st.session_state.run, 'status') and st.session_state.run.status == "running":
-    with st.chat_message('assistant'):
-        st.write("Thinking ......")
-    if st.session_state.retry_error < 3:
-        time.sleep(1) # Wait 1 second before checking run status
-        st.rerun()
-
-# Check the run status and act accordingly
-if hasattr(st.session_state.run, 'status') and st.session_state.run.status == "failed":
-    with st.chat_message('assistant'):
-        st.write("Run failed, retying ......")
-    st.session_state.retry_error += 1
-    if st.session_state.retry_error < 3:
-        time.sleep(3) # Wait 3 second before checking run status
-        st.rerun()
-    else:
+# Check if 'run' object has 'status' attribute
+if hasattr(st.session_state.run, 'status'):
+    # Handle the 'running' status
+    if st.session_state.run.status == "running":
         with st.chat_message('assistant'):
-            st.error("FAILED: The OpenAI API is We're currently processing too many requests. Please try again later ......")
-        
-# Check the run status and act accordingly
-if hasattr(st.session_state.run, 'status') and st.session_state.run.status != "completed":
-    st.session_state.run = client.beta.threads.runs.retrieve(
-        thread_id=st.session_state.thread.id,
-        run_id=st.session_state.run.id,
-    )
-    if st.session_state.retry_error < 3:
-        time.sleep(3) # Wait 3 second before checking run status
-        st.rerun()   
+            st.write("Thinking ......")
+        if st.session_state.retry_error < 3:
+            time.sleep(1)  # Short delay to prevent immediate rerun, adjust as needed
+            st.rerun()
+
+    # Handle the 'failed' status
+    elif st.session_state.run.status == "failed":
+        st.session_state.retry_error += 1
+        with st.chat_message('assistant'):
+            if st.session_state.retry_error < 3:
+                st.write("Run failed, retrying ......")
+                time.sleep(3)  # Longer delay before retrying
+                st.rerun()
+            else:
+                st.error("FAILED: The OpenAI API is currently processing too many requests. Please try again later ......")
+
+    # Handle any status that is not 'completed'
+    elif st.session_state.run.status != "completed":
+        # Attempt to retrieve the run again, possibly redundant if there's no other status but 'running' or 'failed'
+        st.session_state.run = client.beta.threads.runs.retrieve(
+            thread_id=st.session_state.thread.id,
+            run_id=st.session_state.run.id,
+        )
+        if st.session_state.retry_error < 3:
+            time.sleep(3)
+            st.rerun()
