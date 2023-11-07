@@ -56,7 +56,7 @@ st.sidebar.write("Assistant: ", st.session_state.assistant)
 if "thread" not in st.session_state:
     st.session_state.thread = client.beta.threads.create()
 
-if st.session_state.messages.data:
+if st.session_state.messages:
     for message in st.session_state.messages.data:
         if message.role in ["user", "assistant"]:
             with st.chat_message(message.role):
