@@ -99,7 +99,7 @@ if hasattr(st.session_state.run, 'status') and st.session_state.run.status == "f
         st.write("Run failed, retying ......")
     st.session_state.error += 1
     st.write("inc")
-    if st.session_state.error < 2   
+    if st.session_state.error less than 2   
         time.sleep(3) # Wait 1 second before checking run status
         st.rerun()
     
