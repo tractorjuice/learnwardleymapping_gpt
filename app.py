@@ -7,15 +7,17 @@ import time
 from openai import OpenAI
 client = OpenAI()
 
-#MODEL = "gpt-3"
 #MODEL = "gpt-3.5-turbo"
+#MODEL = "gpt-3.5-turbo-0301"
 #MODEL = "gpt-3.5-turbo-0613"
-#MODEL = "gpt-3.5-turbo-16k"
+#MODEL = "gpt-3.5-turbo-1106"
+MODEL = "gpt-3.5-turbo-16k"
 #MODEL = "gpt-3.5-turbo-16k-0613"
 #MODEL = "gpt-4"
 #MODEL = "gpt-4-0613"
+#MODEL = "gpt-4-0613"
 #MODEL = "gpt-4-32k-0613"
-MODEL = "gpt-4-1106-preview"
+#MODEL = "gpt-4-1106-preview"
 #MODEL = "gpt-4-vision-preview"
 
 if "session_id" not in st.session_state:
