@@ -65,7 +65,7 @@ if prompt := st.chat_input("How can I help you?"):
     )
 
 # Check if the run has not completed, and if not, create one
-if st.session_state.run.status != "completed":
+if st.session_state.run['status'] != "completed":
     run_response = client.beta.threads.runs.create(
         thread_id=st.session_state.thread.id,
         assistant_id=st.session_state.assistant.id,
@@ -76,7 +76,7 @@ if st.session_state.run.status != "completed":
     st.rerun()
 
 # If the run is completed, display the messages
-if st.session_state.run.status == "completed":
+if st.session_state.runrun['status'] == "completed":
     # Retrieve the list of messages
     messages_response = client.beta.threads.messages.list(
         thread_id=st.session_state.thread.id
