@@ -83,12 +83,6 @@ if prompt := st.chat_input("How can I help you?"):
       thread_id=st.session_state.thread.id
     )
     
-    #st.write("Messages: ", messages)
-    
-    # Let's assume `thread_messages` is the SyncCursorPage[ThreadMessage] object containing your data
-    
-    # Assuming `thread_messages` is your SyncCursorPage[ThreadMessage] object containing your data
-    
     # Iterate over each ThreadMessage object in the data list
     #for message in messages.data:
     #    for content_part in message.content:
@@ -104,26 +98,10 @@ if prompt := st.chat_input("How can I help you?"):
     #            st.markdown(message["content"])
 
 
-    #for message in messages.data:
-    #    # Check if the message role is either 'user' or 'assistant'
-    #    if message.role in ["user", "assistant"]:
-    #        with st.chat_message(message["role"]):
-    #            for content_part in message.content:
-    #                message_text = content_part.text.value
-    #                st.markdown(message_text)
-
     for message in messages.data:
         # Check if the message role is either 'user' or 'assistant'
         if message.role in ["user", "assistant"]:
-            # Use the role to determine the author of the chat message
-            author = "You" if message.role == "user" else "Assistant"
-            
-            # Use the Streamlit chat_message function to display the message
-            with st.chat_message(author=author):
-                # Iterate over the content parts of the message
-                # and construct the message text
-                message_texts = [content_part.text.value for content_part in message.content]
-                
-                # Join the message texts and display them using st.markdown or st.write
-                st.markdown("\n".join(message_texts))
-
+            with st.chat_message(message.role):
+                for content_part in message.content:
+                    message_text = content_part.text.value
+                    st.markdown(message_text)
