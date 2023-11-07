@@ -53,7 +53,7 @@ st.write("Assistant: ", st.session_state.assistant)
 if "thread" not in st.session_state:
     st.session_state.thread = client.beta.threads.create()
 
-if prompt := st.chat_input("How can I help you?")
+if prompt := st.chat_input("How can I help you?"):
     st.write(f"User has sent the following prompt: {prompt}")
 
     message = client.beta.threads.messages.create(
