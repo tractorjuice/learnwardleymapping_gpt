@@ -37,6 +37,9 @@ st.sidebar.divider()
 
 openai.api_key = st.secrets["OPENAI_API_KEY"]
 
+if "messages" not in st.session_state:
+    st.session_state.messages = []
+    
 if "assistant" not in st.session_state:
     st.session_state.assistant = client.beta.assistants.create(
         name="Learn Wardley Mapping",
@@ -56,12 +59,12 @@ if "thread" not in st.session_state:
 if prompt := st.chat_input("How can I help you?"):
     st.write(f"User has sent the following prompt: {prompt}")
 
-    message = client.beta.threads.messages.create(
+    st.session_state.messages = client.beta.threads.messages.create(
         thread_id=st.session_state.thread.id,
         role="user",
         content=prompt
     )
-    st.sidebar.write("Message: ", message)
+    st.sidebar.write("Message: ", st.session_state.messages)
 
     st.session_state.run = client.beta.threads.runs.create(
       thread_id=st.session_state.thread.id,
@@ -69,14 +72,13 @@ if prompt := st.chat_input("How can I help you?"):
     )
     st.sidebar.write("Run 1: ", st.session_state.run)
       
-    messages = client.beta.threads.messages.list(
+    st.session_state.messages = client.beta.threads.messages.list(
       thread_id=st.session_state.thread.id
     )
 
-    for message in messages.data:
-        # Check if the message role is either 'user' or 'assistant'
-        if message.role in ["user", "assistant"]:
-            with st.chat_message(message.role):
-                for content_part in message.content:
-                    message_text = content_part.text.value
-                    st.markdown(message_text)
+for message in st.session_state.messages.data:
+    if message.role in ["user", "assistant"]:
+        with st.chat_message(message.role):
+            for content_part in message.content:
+                message_text = content_part.text.value
+                st.markdown(message_text)
