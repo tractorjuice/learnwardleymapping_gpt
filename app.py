@@ -75,14 +75,12 @@ if hasattr(st.session_state.run, 'status') and st.session_state.run.status != "c
 # If the run is completed, display the messages
 elif hasattr(st.session_state.run, 'status') and st.session_state.run.status == "completed":
     # Retrieve the list of messages
-    messages_response = client.beta.threads.messages.list(
+    st.session_state.messages = client.beta.threads.messages.list(
         thread_id=st.session_state.thread.id
     )
-    # Update the messages in session state
-    st.session_state.messages = messages_response.data
 
     # Display messages
-    for message in st.session_state.messages:
+    for message in st.session_state.messages.data:
         if message.role in ["user", "assistant"]:
             with st.chat_message(message.role):
                 for content_part in message.content:
