@@ -32,7 +32,7 @@ st.set_page_config(page_title="Learn Wardley Mapping")
 st.sidebar.title("Learn Wardley Mapping")
 st.sidebar.divider()
 st.sidebar.markdown("Developed by Mark Craddock](https://twitter.com/mcraddock)", unsafe_allow_html=True)
-st.sidebar.markdown("Current Version: 0.0.1")
+st.sidebar.markdown("Current Version: 0.0.3")
 st.sidebar.markdown("Using gpt-4-1106-preview API")
 st.sidebar.markdown(st.session_state.session_id)
 st.sidebar.divider()
@@ -40,21 +40,25 @@ st.sidebar.divider()
 
 if "assistant" not in st.session_state:
     openai.api_key = st.secrets["OPENAI_API_KEY"]
+
+    # Load the previously created assistant
     st.session_state.assistant = openai.beta.assistants.retrieve(st.secrets["OPENAI_ASSISTANT"])
 
-if "thread" not in st.session_state:
+    # Create a new thread for this session
     st.session_state.thread = client.beta.threads.create()
 
 if prompt := st.chat_input("How can I help you?"):
     with st.chat_message('user'):
         st.write(prompt)
 
+    # Add message to the thread
     st.session_state.messages = client.beta.threads.messages.create(
         thread_id=st.session_state.thread.id,
         role="user",
         content=prompt
     )
 
+    # Do a run to process the messages in the thread
     st.session_state.run = client.beta.threads.runs.create(
         thread_id=st.session_state.thread.id,
         assistant_id=st.session_state.assistant.id,
