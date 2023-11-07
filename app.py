@@ -71,9 +71,9 @@ if prompt := st.chat_input("How can I help you?"):
 
 # Check the run status and act accordingly
 if hasattr(st.session_state.run, 'status') and st.session_state.run.status != "completed":
-    st.session_state.run = client.beta.threads.runs.create(
+    st.session_state.run = client.beta.threads.runs.retrieve(
         thread_id=st.session_state.thread.id,
-        assistant_id=st.session_state.assistant.id,
+        run_id=st.session_state.run.id,
     )
     st.rerun()
 
