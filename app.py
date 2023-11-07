@@ -100,11 +100,13 @@ if hasattr(st.session_state.run, 'status') and st.session_state.run.status == "f
     with st.chat_message('assistant'):
         st.write("Run failed, retying ......")
     st.session_state.retry_error += 1
-    st.write(st.session_state.retry_error)
     if st.session_state.retry_error < 3:
         time.sleep(3) # Wait 3 second before checking run status
         st.rerun()
-    
+    elif:
+        with st.chat_message('assistant'):
+            st.write("Failed ......")
+        
 # Check the run status and act accordingly
 if hasattr(st.session_state.run, 'status') and st.session_state.run.status != "completed":
     st.session_state.run = client.beta.threads.runs.retrieve(
