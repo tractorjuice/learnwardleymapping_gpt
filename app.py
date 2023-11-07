@@ -37,7 +37,9 @@ st.sidebar.markdown("Using gpt-4-1106-preview API")
 st.sidebar.markdown(st.session_state.session_id)
 st.sidebar.divider()
 # Check if the user has provided an API key, otherwise default to the secret
-    
+
+st.chat_message()
+
 if "assistant" not in st.session_state:
     openai.api_key = st.secrets["OPENAI_API_KEY"]
     st.session_state.assistant = client.beta.assistants.create(
