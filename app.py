@@ -38,20 +38,9 @@ st.sidebar.markdown(st.session_state.session_id)
 st.sidebar.divider()
 # Check if the user has provided an API key, otherwise default to the secret
 
-st.chat_message()
-
 if "assistant" not in st.session_state:
     openai.api_key = st.secrets["OPENAI_API_KEY"]
-    st.session_state.assistant = client.beta.assistants.create(
-        name="Learn Wardley Mapping",
-        instructions="""
-            Interact with LearnWardleyMapping, your personal guide to learning and creating Wardley Maps.
-            Discover the power of Wardley Mapping for strategic planning and decision-making by choosing to 'Learn' about the components of a Wardley Map, or 'Vocabulary' and I will provide a list of common terms and their definitions. or 'Create' your own map with step-by-step guidance.
-            If you need assistance, type 'Help' for support. Begin your Wardley Mapping journey now!
-            """,
-        tools=[{"type": "code_interpreter"}],
-        model="gpt-4-1106-preview"
-    )
+    st.session_state.assistant = openai.beta.assistants.retrieve(st.secrets["OPENAI_ASSISTANT"])
 
 if "thread" not in st.session_state:
     st.session_state.thread = client.beta.threads.create()
