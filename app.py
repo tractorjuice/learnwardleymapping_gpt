@@ -107,10 +107,9 @@ if prompt := st.chat_input("How can I help you?"):
     for message in messages.data:
         # Check if the message role is either 'user' or 'assistant'
         if message.role in ["user", "assistant"]:
-            # Loop through the content part of the message
-            for content_part in message.content:
-                message_text = content_part.text.value
-                # Render the message text as Markdown
-                st.markdown(message_text)
+            with st.chat_message(message["role"]):
+                for content_part in message.content:
+                    message_text = content_part.text.value
+                    st.markdown(message_text)
 
 
