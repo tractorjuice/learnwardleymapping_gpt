@@ -55,6 +55,13 @@ if hasattr(st.session_state.run, 'status') and st.session_state.run.status != "f
         st.write("Run failed, retying ......")
     time.sleep(3) # Wait 1 second before checking run status
     st.rerun()
+
+# Check the run status and act accordingly
+if hasattr(st.session_state.run, 'status') and st.session_state.run.status != "running":
+    with st.chat_message('assistant'):
+        st.write("Thinking ......")
+    time.sleep(3) # Wait 1 second before checking run status
+    st.rerun()
     
 # Check the run status and act accordingly
 if hasattr(st.session_state.run, 'status') and st.session_state.run.status != "completed":
