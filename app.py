@@ -27,6 +27,9 @@ if "run" not in st.session_state:
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
+if "error" not in st.session_state:
+    st.session_state.error = 0
+
 st.set_page_config(page_title="Learn Wardley Mapping")
 st.sidebar.title("Learn Wardley Mapping")
 st.sidebar.divider()
@@ -94,8 +97,11 @@ if hasattr(st.session_state.run, 'status') and st.session_state.run.status == "r
 if hasattr(st.session_state.run, 'status') and st.session_state.run.status == "failed":
     with st.chat_message('assistant'):
         st.write("Run failed, retying ......")
-    time.sleep(3) # Wait 1 second before checking run status
-    st.rerun()
+    st.session_state.error += 1
+    st.write("inc")
+    if st.session_state.error < 2   
+        time.sleep(3) # Wait 1 second before checking run status
+        st.rerun()
     
 # Check the run status and act accordingly
 if hasattr(st.session_state.run, 'status') and st.session_state.run.status != "completed":
