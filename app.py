@@ -48,45 +48,7 @@ if "assistant" not in st.session_state:
             'session_id': st.session_state.session_id,
         }
     )
-  
-# Check the run status and act accordingly
-if hasattr(st.session_state.run, 'status') and st.session_state.run.status != "completed":
-    st.session_state.run = client.beta.threads.runs.retrieve(
-        thread_id=st.session_state.thread.id,
-        run_id=st.session_state.run.id,
-    )
-    time.sleep(1) # Wait 1 second before checking run status
-    st.rerun()
 
-# If the run is completed, display the messages
-elif hasattr(st.session_state.run, 'status') and st.session_state.run.status == "completed":
-    # Retrieve the list of messages
-    st.session_state.messages = client.beta.threads.messages.list(
-        thread_id=st.session_state.thread.id
-    )
-
-    # Display messages
-    for message in reversed(st.session_state.messages.data):
-        if message.role in ["user", "assistant"]:
-            with st.chat_message(message.role):
-                for content_part in message.content:
-                    message_text = content_part.text.value
-                    st.markdown(message_text)
-                    
-# Check the run status and act accordingly
-if hasattr(st.session_state.run, 'status') and st.session_state.run.status != "running":
-    with st.chat_message('assistant'):
-        st.write("Thinking ......")
-    time.sleep(3) # Wait 1 second before checking run status
-    st.rerun()
-
-# Check the run status and act accordingly
-if hasattr(st.session_state.run, 'status') and st.session_state.run.status != "failed":
-    with st.chat_message('assistant'):
-        st.write("Run failed, retying ......")
-    time.sleep(3) # Wait 1 second before checking run status
-    st.rerun()
-    
 if prompt := st.chat_input("How can I help you?"):
     with st.chat_message('user'):
         st.write(prompt)
@@ -105,3 +67,41 @@ if prompt := st.chat_input("How can I help you?"):
     )
     time.sleep(1) # Wait 1 second before checking run status
     st.rerun()
+  
+# If the run is completed, display the messages
+elif hasattr(st.session_state.run, 'status') and st.session_state.run.status == "completed":
+    # Retrieve the list of messages
+    st.session_state.messages = client.beta.threads.messages.list(
+        thread_id=st.session_state.thread.id
+    )
+
+    # Display messages
+    for message in reversed(st.session_state.messages.data):
+        if message.role in ["user", "assistant"]:
+            with st.chat_message(message.role):
+                for content_part in message.content:
+                    message_text = content_part.text.value
+                    st.markdown(message_text)
+                    
+# Check the run status and act accordingly
+if hasattr(st.session_state.run, 'status') and st.session_state.run.status == "running":
+    with st.chat_message('assistant'):
+        st.write("Thinking ......")
+    time.sleep(3) # Wait 1 second before checking run status
+    st.rerun()
+
+# Check the run status and act accordingly
+if hasattr(st.session_state.run, 'status') and st.session_state.run.status == "failed":
+    with st.chat_message('assistant'):
+        st.write("Run failed, retying ......")
+    time.sleep(3) # Wait 1 second before checking run status
+    st.rerun()
+    
+# Check the run status and act accordingly
+if hasattr(st.session_state.run, 'status') and st.session_state.run.status != "completed":
+    st.session_state.run = client.beta.threads.runs.retrieve(
+        thread_id=st.session_state.thread.id,
+        run_id=st.session_state.run.id,
+    )
+    time.sleep(1) # Wait 1 second before checking run status
+    st.rerun()    
