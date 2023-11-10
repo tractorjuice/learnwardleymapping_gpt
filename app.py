@@ -34,7 +34,7 @@ if "retry_error" not in st.session_state:
 
 st.set_page_config(page_title="Learn Wardley Mapping")
 st.sidebar.title("Learn Wardley Mapping")
-#st.sidebar.image("./logo.png")
+st.sidebar.image("./logo.png")
 st.sidebar.divider()
 st.sidebar.markdown("Developed by Mark Craddock](https://twitter.com/mcraddock)", unsafe_allow_html=True)
 #st.sidebar.markdown("Current Version: 0.0.3")
